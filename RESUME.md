@@ -1,88 +1,59 @@
-# [Your Name]
+# 张家轩
 
-Data / Quant Engineer — Market Data Pipelines, Applied ML & Agent Systems
+**AI 研究工程师** · 大模型评测 / Agent 系统 / 数据与量化研究
 
-📍 [City, Country] · ✉️ you@example.com · 🔗 github.com/&lt;you&gt; · 🔗 linkedin.com/in/&lt;you&gt;
-
-> *Replace bracketed placeholders with your own details. This resume is built around the
-> `predmarket-radar` project in this repository as a portfolio centrepiece.*
+📧 2295925718@qq.com · 🔗 github.com/jiaxuan881114-gif · 📍 中国
 
 ---
 
-## Summary
+## 个人简介
 
-Engineer who builds production-grade market-data pipelines and turns raw exchange data
-into decision-ready signal. Experienced with REST/websocket ingestion, normalisation,
-quant screening heuristics, and LLM agent layers that emit structured, verifiable output.
-Comfortable owning a project end-to-end: API research → data model → analysis → agent →
-open-source repo.
+AI 研究工程师，方向聚焦大模型评测与 Agent 系统落地。擅长把模型能力、Prompt 工程与真实业务场景结合，提升生成结果的一致性与任务完成率；同时具备独立的数据/工程交付能力——从 API 调研、数据建模、信号设计到开源仓库交付全流程闭环。对预测市场、量化信号与 LLM 推理链路有实际项目实践。
 
-## Technical Skills
+## 技术栈
 
-- **Languages:** Python (primary), SQL, bash; working knowledge of TypeScript.
-- **Data / quant:** REST & websocket clients, pandas/numpy, time-series, statistical
-  screening, cross-venue arbitrage detection, backtesting-lite.
-- **LLM / agents:** OpenAI-compatible APIs, structured JSON outputs, prompt design,
-  agent orchestration (multi-role pipelines, e.g. TradingAgents-style research loops).
-- **Engineering:** git, CI, Docker, FastAPI, Pydantic, pytest, cloud deployment basics.
+- **大模型 / Agent**：Prompt 设计与优化、结构化输出（JSON schema / Pydantic 校验）、多角色 Agent 编排、模型评测与问题归因。
+- **数据 / 工程**：Python、REST / WebSocket 数据采集、数据归一化、时间序列信号、统计筛选、跨数据源比对。
+- **工程实践**：Git、CI 离线测试、模块化设计、开源文档与可复现样例。
 
 ---
 
-## Selected Project
+## 代表项目
 
-### predmarket-radar — Prediction-Market Data Pipeline & Analysis Framework
-**GitHub:** github.com/&lt;you&gt;/predmarket-radar · Python, requests, Pydantic, OpenAI API
+### predmarket-radar — 预测市场数据管道 · 分析框架 · Agent 判断层
+**GitHub:** github.com/jiaxuan881114-gif/predmarket-radar · Python / requests / Pydantic / OpenAI API
 
-An end-to-end research platform that ingests live markets from **Polymarket** and
-**Kalshi**, normalises them into one unified model, screens the market universe for
-attention and mispricing, and routes interesting markets through a narrow LLM analyst
-that returns a structured judgement.
+参考 [TradingAgents](https://github.com/tauricresearch/tradingagents) 的多角色 Agent 思路，面向 Polymarket 与 Kalshi 两大预测市场，构建从实时数据到结构化判断的完整研究管线。
 
-- **Data ingestion** — built read-only clients on Polymarket's Gamma/CLOB APIs and
-  Kalshi's trade API, handling their differing dialects (0..1 decimals vs. integer
-  cents, events/markets/tokens hierarchy) into one `MarketSnapshot` schema, with
-  retries, timeouts and graceful per-venue degradation.
-- **Analysis framework** — composite attention screener (volume × liquidity ×
-  information content), probability-move momentum tracker, anomaly detectors (wide
-  spread, volume velocity, longshots, thin books), and a fuzzy-matching **cross-venue
-  dislocation detector** that flags the same event priced differently across exchanges.
-- **Agent layer** — designed a TradingAgents-style narrow analyst (prompt + strict JSON
-  output: thesis, direction, conviction, factors, risks, suggested action) on an
-  OpenAI-compatible endpoint, plus a deterministic offline mock so the pipeline and CI
-  run without keys.
-- **Open source** — documented the data model, architecture diagram, and sample outputs
-  in the README; offline tests covering screening, cross-venue matching, anomaly flags
-  and structured agent output.
+- **数据接入**：基于 Polymarket Gamma/CLOB 与 Kalshi 公开 API 构建只读客户端，处理两家不同的数据方言（0–1 小数 vs. 整数美分、事件/市场/Token 层级），归一化为统一 `MarketSnapshot` 模型，带超时重试与单交易所故障降级。
+- **分析框架**：复合关注度打分（成交量 × 流动性 × 信息含量，主动惩罚无信息量的 99/1 市场）、概率变动追踪、异常检测（宽价差、成交速度、长尾极值），以及跨所模糊匹配的**价差信号**——能识别同一事件在两个交易所的定价偏差。
+- **Agent 判断层**：设计窄专家 Prompt，输出严格 JSON 判断（论点 / 方向 / 置信度 / 关键因子 / 风险 / 建议动作），兼容任意 OpenAI 协议端点；无 key 时降级为确定性离线分析器，保证样例与 CI 可复现。
+- **工程交付**：完整 README（架构图、数据结构、端点表、快速开始）、真实结构样例输出、离线测试覆盖筛选/跨所匹配/异常/结构化输出，全部通过。
 
-*What it demonstrates:* API research & integration, data modelling, quant signal
-design, LLM/agent engineering, and clean open-source delivery.
+*体现能力：API 调研与集成、数据建模、量化信号设计、LLM/Agent 工程、可复现的开源交付。*
 
 ---
 
-## Experience
+## 工作 / 实习经历
 
-### [Your Title] — [Company]
-*[Month YYYY] – Present*
-- [One bullet: a data/engineering outcome with a metric.]
-- [One bullet: a pipeline/automation you shipped.]
-- [One bullet: collaboration / ownership.]
+### 小红书 — 大模型评测实习生
+*[时间待补充]*
+- 参与大模型应用场景评测，结合模型表现与问题分析进行归因；
+- 支持 Prompt 优化，改善生成结果的一致性与任务完成效果。
 
-### [Your Title] — [Previous Company]
-*[Month YYYY] – [Month YYYY]*
-- [Bullet.]
-- [Bullet.]
+### Fabrique — AI 研发实习生
+*[时间待补充]*
+- 独立负责数字孪生消费者项目开发，推进 AI 技术在消费者模拟场景中的落地应用。
 
 ---
 
-## Education
+## 教育背景
 
-### [Degree, e.g. B.Sc. in Computer Science / Economics]
-[University] · [Month YYYY]
-- Relevant coursework: statistics, machine learning, econometrics, distributed systems.
+### 中国传媒大学 — 通信工程（互联网信息方向）· 硕士
+*[入学/毕业年份待补充]*
 
 ---
 
-## Highlights
-- Open-source contributor / side projects (see GitHub).
-- Comfortable reading raw OpenAPI/HTTP specs and reverse-engineering undocumented fields.
-- Strong focus on reproducibility: fixtures, offline tests, and human-readable sample output.
+## 备注
+- 对预测市场、宏观事件定价与 LLM 推理链路有持续兴趣与动手实践。
+- 习惯以可复现方式交付：fixture 样例、离线测试、人类可读的输出文档。
