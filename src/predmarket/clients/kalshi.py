@@ -35,12 +35,16 @@ def _f(value: Any, default: float = 0.0) -> float:
 class KalshiClient(BaseHttpClient):
     base_url = "https://external-api.kalshi.com/trade-api/v2"
 
-    def list_active_markets(self, limit: int = 100, status: str = "open") -> list[MarketSnapshot]:
+    def list_active_markets(self, limit: int = 100, status: str = "open",
+                            series_ticker: Optional[str] = None) -> list[MarketSnapshot]:
         """Fetch open markets, paginating via cursor up to `limit` total."""
         out: list[MarketSnapshot] = []
         cursor: Optional[str] = None
+        seen_cursors: set[str] = set()
         while len(out) < limit:
-            params: dict[str, Any] = {"status": status, "limit": min(limit - len(out), 200)}
+            params: dict[str, Any] = {"status": status, "limit": min(limit - len(out), 200), "mve_filter": "exclude"}
+            if series_ticker:
+                params["series_ticker"] = series_ticker
             if cursor:
                 params["cursor"] = cursor
             data = self._get("/markets", params=params)
@@ -50,8 +54,9 @@ class KalshiClient(BaseHttpClient):
                 if snap is not None:
                     out.append(snap)
             cursor = data.get("cursor") if isinstance(data, dict) else None
-            if not cursor:
+            if not cursor or cursor in seen_cursors:
                 break
+            seen_cursors.add(cursor)
         log.info("Kalshi: %d open markets", len(out))
         return out[:limit]
 
@@ -120,6 +125,14 @@ class KalshiClient(BaseHttpClient):
             raw={
                 "event_ticker": m.get("event_ticker"),
                 "sub_title": m.get("subtitle"),
+                "yes_sub_title": m.get("yes_sub_title"),
+                "no_sub_title": m.get("no_sub_title"),
+                "rules_primary": m.get("rules_primary"),
+                "rules_secondary": m.get("rules_secondary"),
+                "strike_type": m.get("strike_type"),
+                "floor_strike": m.get("floor_strike"),
+                "cap_strike": m.get("cap_strike"),
+                "expected_expiration_time": m.get("expected_expiration_time"),
                 "yes_bid_cents": yes_bid_c,
                 "yes_ask_cents": yes_ask_c,
             },

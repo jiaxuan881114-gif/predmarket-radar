@@ -34,7 +34,8 @@ def _load_fixtures() -> list[MarketSnapshot]:
 
 def cmd_run(args: argparse.Namespace) -> int:
     collector = Collector(store=SnapshotStore(args.data_dir))
-    report = collector.collect(limit_per_venue=args.limit, top_n=args.top_n)
+    report = collector.collect(limit_per_venue=args.limit, top_n=args.top_n,
+                               kalshi_series=getattr(args, "kalshi_series", None))
 
     # Agent layer on the top screened markets from the latest stored snapshot.
     analyst = build_analyst()
@@ -106,6 +107,7 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     p_run = sub.add_parser("run", help="live fetch from exchanges")
+    p_run.add_argument("--kalshi-series", action="append", help="Repeat to target overlapping event series")
     p_run.add_argument("--limit", type=int, default=100)
     p_run.add_argument("--top-n", type=int, default=25)
     p_run.add_argument("--agent-limit", type=int, default=5)
@@ -118,6 +120,9 @@ def main(argv: list[str] | None = None) -> int:
     p_demo.add_argument("--agent-limit", type=int, default=5)
     p_demo.add_argument("--out", default=None)
     p_demo.set_defaults(func=cmd_demo)
+
+    from .pairing_cli import register_match_command
+    register_match_command(sub)
 
     args = parser.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")

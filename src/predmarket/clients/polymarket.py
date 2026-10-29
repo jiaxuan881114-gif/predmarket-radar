@@ -50,24 +50,31 @@ class PolymarketClient(BaseHttpClient):
         order: str = "volume24hr",
     ) -> list[MarketSnapshot]:
         """Fetch active, open markets sorted by 24h volume (descending)."""
-        params: dict[str, Any] = {
-            "limit": min(limit, 500),
-            "active": "true",
-            "closed": "false",
-            "order": order,
-            "ascending": "false",
-        }
-        data = self._get("/markets", params=params)
-        # Gamma may return a bare array or {"markets": [...]}
-        items = data.get("markets", data) if isinstance(data, dict) else data
         out: list[MarketSnapshot] = []
-        for m in items:
-            snap = self._normalize(m)
-            if snap is None:
-                continue
-            if snap.volume < min_volume:
-                continue
-            out.append(snap)
+        seen: set[str] = set()
+        offset = 0
+        # Bound raw rows visited even when some markets fail the activity filter.
+        while offset < limit:
+            page_size = min(limit - offset, 100)
+            data = self._get("/markets", params={
+                "limit": page_size, "offset": offset, "active": "true",
+                "closed": "false", "order": order, "ascending": "false",
+            })
+            items = data.get("markets", []) if isinstance(data, dict) else data
+            if not items:
+                break
+            added = 0
+            for m in items:
+                snap = self._normalize(m)
+                if snap is None or snap.market_id in seen:
+                    continue
+                seen.add(snap.market_id)
+                added += 1
+                if snap.volume >= min_volume:
+                    out.append(snap)
+            offset += len(items)
+            if len(items) < page_size or not added:
+                break
         log.info("Polymarket: %d active markets", len(out))
         return out
 
@@ -160,6 +167,8 @@ class PolymarketClient(BaseHttpClient):
             closed=bool(m.get("closed", False)),
             end_date=end_date,
             raw={
+                "description": m.get("description"),
+                "resolution_source": m.get("resolutionSource"),
                 "slug": slug,
                 "outcomes": outcomes,
                 "clobTokenIds": clob_tokens,

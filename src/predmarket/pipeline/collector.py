@@ -38,7 +38,8 @@ class Collector:
         self.kalshi = KalshiClient()
         self.store = store or SnapshotStore()
 
-    def collect(self, limit_per_venue: int = 100, top_n: int = 25) -> RadarReport:
+    def collect(self, limit_per_venue: int = 100, top_n: int = 25,
+                kalshi_series: list[str] | None = None) -> RadarReport:
         prev = self.store.latest()
         errors: list[str] = []
         markets: list[MarketSnapshot] = []
@@ -50,7 +51,22 @@ class Collector:
             errors.append(f"polymarket: {exc}")
 
         try:
-            markets += self.kalshi.list_active_markets(limit=limit_per_venue)
+            if kalshi_series:
+                # Apply the per-venue cap across explicitly selected series.
+                found = {}
+                for series in dict.fromkeys(kalshi_series):
+                    if len(found) >= limit_per_venue:
+                        break
+                    try:
+                        for m in self.kalshi.list_active_markets(
+                            limit=limit_per_venue - len(found), series_ticker=series,
+                        ):
+                            found[m.market_id] = m
+                    except Exception as exc:
+                        errors.append(f"kalshi:{series}: {type(exc).__name__}")
+                markets += list(found.values())
+            else:
+                markets += self.kalshi.list_active_markets(limit=limit_per_venue)
         except Exception as exc:  # noqa: BLE001
             log.warning("Kalshi fetch failed: %s", exc)
             errors.append(f"kalshi: {exc}")
