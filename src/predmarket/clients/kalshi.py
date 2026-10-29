@@ -57,6 +57,20 @@ class KalshiClient(BaseHttpClient):
             if not cursor or cursor in seen_cursors:
                 break
             seen_cursors.add(cursor)
+        if series_ticker and out:
+            try:
+                series = self._get(f"/series/{series_ticker}").get("series", {})
+                if series.get("ticker") != series_ticker:
+                    raise ValueError("series identity does not match request")
+                evidence = {key: series.get(key) for key in (
+                    "ticker", "title", "settlement_sources", "contract_url", "contract_terms_url",
+                )}
+                for market in out:
+                    market.raw["series_evidence"] = evidence
+            except Exception as exc:
+                # Keep collected markets, but expose missing evidence in the report.
+                for market in out:
+                    market.raw["series_evidence_error"] = type(exc).__name__
         log.info("Kalshi: %d open markets", len(out))
         return out[:limit]
 

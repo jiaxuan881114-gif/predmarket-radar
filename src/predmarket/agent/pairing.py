@@ -71,7 +71,7 @@ def candidate_pairs(markets: list[MarketSnapshot], limit: int = 20,
 def _evidence(m: MarketSnapshot) -> dict:
     keys = ("description", "resolution_source", "rules_primary", "rules_secondary",
             "yes_sub_title", "no_sub_title", "strike_type", "floor_strike", "cap_strike",
-            "expected_expiration_time", "outcomes")
+            "expected_expiration_time", "outcomes", "series_evidence", "series_evidence_error")
     return {
         "market_id": m.market_id, "question": m.question,
         "close_time": m.end_date.isoformat() if m.end_date else None,
@@ -92,7 +92,8 @@ class PairMatcher(MarketAnalyst):
             "knowledge to fill missing rules. Compare subject, condition/strike (including "
             "strict vs inclusive boundaries), event time window, settlement rules/sources "
             "and YES payout polarity. Close time is trading metadata, not necessarily the "
-            "event deadline. Related topics, different dates/strikes or opposite YES payouts "
+            "event deadline. Contract URLs are references only; do not claim to have read their "
+            "contents unless the text is supplied. Related topics, different dates/strikes or opposite YES payouts "
             "are NOT the same event. Mark uncertain when evidence is missing. Only return "
             "same_event if every dimension is match and no material information is missing. "
             "Return JSON only matching this JSON schema: "

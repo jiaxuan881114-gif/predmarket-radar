@@ -1,0 +1,117 @@
+{
+  "model": "gpt-6-luna",
+  "candidate_count": 6,
+  "reviewed_count": 6,
+  "decisions": [
+    {
+      "polymarket_id": "0x4e9cff8a3aeac036225fedcc98af9b0d55284b3f430b599e7f61b059c1e177af",
+      "kalshi_id": "KXISRAELKNESSET-26-TOGE",
+      "status": "different_event",
+      "confidence": 0.97,
+      "subject": "match",
+      "condition": "match",
+      "time_window": "unknown",
+      "resolution_rules": "different",
+      "yes_polarity": "match",
+      "reason": "Both concern Together winning the most seats in an Israeli legislative election, and Yes represents that outcome. But the supplied tie-break rules conflict: Polymarket uses valid-vote totals, then alphabetical order, while Kalshi uses government participation, then vote share. The supplied Kalshi text does not identify the election date, so it also cannot be confirmed as the same 2026 election.",
+      "missing_information": [
+        "Kalshi's exact election date or event window.",
+        "Whether Kalshi's full settlement rules add or alter any relevant tie-break or election-result rules; only the supplied rule excerpts are available."
+      ],
+      "candidate_similarity": 0.625,
+      "dislocation_pp": null
+    },
+    {
+      "polymarket_id": "0xd05da9807740aa0f5bc9e9232daabe87a21e5012c19e283abf414f1c1651118b",
+      "kalshi_id": "KXISRAELKNESSET-26-YAS",
+      "status": "different_event",
+      "confidence": 0.91,
+      "subject": "match",
+      "condition": "match",
+      "time_window": "unknown",
+      "resolution_rules": "different",
+      "yes_polarity": "match",
+      "reason": "Both contracts concern Yashar winning the most seats in an Israeli legislative election, and YES has the same polarity. However, their tie-breaking rules differ materially: Polymarket uses valid-vote count and then alphabetical order, while Kalshi uses entry into government and then vote share. Also, only Polymarket explicitly identifies the 2026 election; Kalshi says “next” without specifying its date.",
+      "missing_information": [
+        "The election date or other definitive identification of the election targeted by Kalshi."
+      ],
+      "candidate_similarity": 0.625,
+      "dislocation_pp": null
+    },
+    {
+      "polymarket_id": "0x0aeafd983d87efa8403ca903513950b4b1906f442219c28e5486b66b87545a69",
+      "kalshi_id": "KXISRAELKNESSET-26-TOGE",
+      "status": "different_event",
+      "confidence": 0.99,
+      "subject": "match",
+      "condition": "different",
+      "time_window": "unknown",
+      "resolution_rules": "different",
+      "yes_polarity": "match",
+      "reason": "Both concern Together in an Israeli legislative election, and YES affirms the stated outcome in each. But Polymarket asks whether Together finishes third in seats, while Kalshi asks whether Together wins the most seats. The supplied Polymarket rules also rank ties by vote totals and then alphabetical order, whereas Kalshi specifies government entry and then vote share for seat ties. The supplied text does not establish that Kalshi's “next” election is definitively the same election date as Polymarket's specified 2026 election; close times do not establish the event window.",
+      "missing_information": [
+        "Kalshi's exact election date or confirmation that its “next Israeli legislative election” is the 2026 election.",
+        "Further Kalshi settlement details beyond the supplied summary, if needed to compare all source and settlement procedures."
+      ],
+      "candidate_similarity": 0.5556,
+      "dislocation_pp": null
+    },
+    {
+      "polymarket_id": "0x4e9cff8a3aeac036225fedcc98af9b0d55284b3f430b599e7f61b059c1e177af",
+      "kalshi_id": "KXISRAELKNESSET-26-BEN",
+      "status": "different_event",
+      "confidence": 0.99,
+      "subject": "different",
+      "condition": "different",
+      "time_window": "unknown",
+      "resolution_rules": "different",
+      "yes_polarity": "match",
+      "reason": "The Polymarket contract asks whether Together wins the most seats, while the Kalshi contract asks whether Bennett 2026 wins the election. Both describe an affirmative outcome for a named party or list, but the named entities differ. Their tie-breaking rules also differ: Polymarket uses valid votes and then alphabetical order, while Kalshi uses government entry and then vote share. The supplied text does not establish that the Kalshi event has the exact same election date as Polymarket's stated October 27, 2026 election.",
+      "missing_information": [
+        "Whether the Kalshi contract's 'next Israeli legislative election' is specifically the election scheduled for October 27, 2026."
+      ],
+      "candidate_similarity": 0.5556,
+      "dislocation_pp": null
+    },
+    {
+      "polymarket_id": "0xd05da9807740aa0f5bc9e9232daabe87a21e5012c19e283abf414f1c1651118b",
+      "kalshi_id": "KXISRAELKNESSET-26-BEN",
+      "status": "different_event",
+      "confidence": 0.99,
+      "subject": "match",
+      "condition": "different",
+      "time_window": "unknown",
+      "resolution_rules": "different",
+      "yes_polarity": "match",
+      "reason": "Both concern who wins the most seats in an Israeli legislative election, and YES is affirmative in both: the named party or list wins. But the named winners differ (Yashar versus Bennett 2026), so the contracts do not describe the same event. Their tie-break rules also differ: Polymarket uses valid-vote totals and then alphabetical order, while Kalshi prioritizes entering government and then vote share. The supplied Kalshi text does not explicitly establish the election date.",
+      "missing_information": [
+        "The Kalshi event's exact election date or time window is not stated in the supplied rules."
+      ],
+      "candidate_similarity": 0.5556,
+      "dislocation_pp": null
+    },
+    {
+      "polymarket_id": "0xf77fa3e63014f1f76ea4433dac66b3860493ed7f1a9fee3dfbef9104d7f1eee3",
+      "kalshi_id": "KXISRAELKNESSET-26-BEN",
+      "status": "different_event",
+      "confidence": 0.99,
+      "subject": "match",
+      "condition": "different",
+      "time_window": "unknown",
+      "resolution_rules": "different",
+      "yes_polarity": "match",
+      "reason": "Both concern which party or coalition wins the most seats in an Israeli Knesset election, but the Polymarket YES condition names Likud while the Kalshi YES condition names Bennett 2026. The supplied Kalshi text does not specify the election date precisely enough to confirm the event window. Their tie-break rules also differ: Polymarket uses valid-vote totals and then alphabetical order, while Kalshi uses government entry and then vote share.",
+      "missing_information": [
+        "The precise election date or event deadline for the Kalshi contract."
+      ],
+      "candidate_similarity": 0.5556,
+      "dislocation_pp": null
+    }
+  ],
+  "confirmed_pairs": [],
+  "errors": [],
+  "generated_at": "2026-10-29T09:36:44.067798+00:00",
+  "source_snapshot": "samples/israel_pairing_markets.json",
+  "markets_loaded": 525,
+  "note": "LLM equivalence review on saved data; gaps are indicative, not executable arbitrage."
+}

@@ -112,6 +112,19 @@ class PairingTests(unittest.TestCase):
         self.assertEqual(m.raw['rules_primary'],'official rules')
         self.assertEqual(m.raw['yes_sub_title'],'25bps')
 
+    def test_series_evidence_is_retained_and_identity_checked(self):
+        raw=dict(ticker='K',title='Fed',last_price=50,rules_primary='official rules')
+        for returned_ticker in ['FED','WRONG']:
+            c=KalshiClient()
+            c._get=Mock(side_effect=[{'markets':[raw]}, {'series':{
+                'ticker':returned_ticker,'settlement_sources':[{'name':'Fed','url':'https://www.federalreserve.gov'}]}}])
+            m=c.list_active_markets(series_ticker='FED')[0]
+            if returned_ticker=='FED':
+                self.assertEqual(m.raw['series_evidence']['ticker'],'FED')
+            else:
+                self.assertEqual(m.raw['series_evidence_error'],'ValueError')
+                self.assertNotIn('series_evidence',m.raw)
+
     def test_polymarket_pagination_and_description(self):
         c=PolymarketClient()
         def page(path,params):

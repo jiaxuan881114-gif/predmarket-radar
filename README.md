@@ -285,10 +285,43 @@ model decisions. The Fed 25bps titles were close, but Polymarket's explicit
 nonstandard-change rounding and incomplete/different Kalshi settlement evidence
 prevented exact equivalence. Model assessments still require human review.
 
-Offline validation includes the original checks and 25 unittest cases covering
+Offline validation includes the original checks and 26 unittest cases covering
 collection, candidate recall, identity/schema validation, conservative evidence
 gates, failures and bounded retries. Run all unittest cases with:
 
 ```bash
 PYTHONPATH=src python -m unittest discover -s tests -p 'test_*.py'
+```
+
+### Expanded evidence and a second real topic
+
+For explicitly targeted Kalshi series, collection now fetches series-level
+`settlement_sources`, `contract_url` and `contract_terms_url`. These are retained
+as `raw.series_evidence` and included in LLM input. Series identity must match the
+request. Metadata failures keep the already-collected markets but populate
+`raw.series_evidence_error` and report `data_warnings`; they do not silently
+fabricate settlement information. URLs are references, not proof that their linked
+contracts were downloaded or read. Upstream metadata may contain generic templates
+or unrelated-looking links and must still be checked against the actual rules.
+
+A further real collection returned 500 Polymarket markets and 75 Kalshi markets
+(19 Israel PM candidates, 6 Israel parliamentary-election outcomes, 50 Fed outcomes),
+with no collection errors or metadata fetch/identity warnings. The separate
+Israel-election subset was reviewed in six more real LLM candidate reviews (with bounded
+transient retries): all six structured reviews succeeded, all were marked
+`different_event`, and none was accepted as an equivalent contract. Together/Yashar
+winner markets had materially different tie-break rules; other candidates differed
+in party identity or first-place versus third-place finish.
+
+See [`samples/israel_pairing_markets.json`](samples/israel_pairing_markets.json) and
+[`samples/israel_llm_pairing_report.json`](samples/israel_llm_pairing_report.json).
+Across the two demonstrated batches, 12 candidate reviews completed: 11 different,
+one uncertain, zero accepted pairs. These examples demonstrate conservative
+rejection, not exhaustive market coverage or real-world positive-match accuracy.
+
+To collect the second topic explicitly:
+
+```bash
+PYTHONPATH=src python -m predmarket.cli run --limit 500 --agent-limit 0 \
+  --kalshi-series KXISRAELPM --kalshi-series KXISRAELKNESSET
 ```

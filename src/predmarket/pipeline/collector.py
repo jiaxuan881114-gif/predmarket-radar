@@ -27,6 +27,7 @@ class RadarReport:
     anomalies: list = field(default_factory=list)
     cross_venue_pairs: list = field(default_factory=list)
     errors: list = field(default_factory=list)
+    data_warnings: list = field(default_factory=list)
 
     def as_dict(self) -> dict:
         return asdict(self)
@@ -103,4 +104,9 @@ class Collector:
             anomalies=[a.model_dump(mode="json") for a in anomalies],
             cross_venue_pairs=[p.as_dict() for p in pairs],
             errors=errors,
+            data_warnings=[
+                {"venue": m.venue.value, "market_id": m.market_id,
+                 "stage": "series_evidence", "error_type": m.raw["series_evidence_error"]}
+                for m in markets if m.raw.get("series_evidence_error")
+            ],
         )
