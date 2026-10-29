@@ -19,7 +19,7 @@ class SnapshotStore:
         self.dir.mkdir(parents=True, exist_ok=True)
 
     def write(self, markets: list[MarketSnapshot], label: str = "snapshot") -> Path:
-        ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
         path = self.dir / f"{label}_{ts}.json"
         payload = {
             "fetched_at": datetime.now(timezone.utc).isoformat(),
@@ -30,13 +30,13 @@ class SnapshotStore:
         return path
 
     def latest(self, label_prefix: str = "snapshot") -> list[MarketSnapshot]:
-        files = sorted(self.dir.glob(f"{label_prefix}_*.json"))
+        files = sorted(self.dir.glob(f"{label_prefix}_*.json"), key=lambda p: p.stem.replace("Z", ".000000") if "." not in p.stem else p.stem[:-1])
         if not files:
             return []
         return self._read(files[-1])
 
     def previous_two(self, label_prefix: str = "snapshot") -> tuple[list[MarketSnapshot], list[MarketSnapshot]]:
-        files = sorted(self.dir.glob(f"{label_prefix}_*.json"))
+        files = sorted(self.dir.glob(f"{label_prefix}_*.json"), key=lambda p: p.stem.replace("Z", ".000000") if "." not in p.stem else p.stem[:-1])
         if len(files) < 2:
             return [], self.latest(label_prefix)
         return self._read(files[-2]), self._read(files[-1])

@@ -39,6 +39,7 @@ class Collector:
         self.store = store or SnapshotStore()
 
     def collect(self, limit_per_venue: int = 100, top_n: int = 25) -> RadarReport:
+        prev = self.store.latest()
         errors: list[str] = []
         markets: list[MarketSnapshot] = []
 
@@ -57,7 +58,7 @@ class Collector:
         if markets:
             self.store.write(markets)
 
-        prev, _ = self.store.previous_two()
+        self.current_markets = markets
         screened = screen_markets(markets, top_n=top_n)
         moves = detect_moves(prev, markets) if prev else []
         anomalies = detect_anomalies(markets)

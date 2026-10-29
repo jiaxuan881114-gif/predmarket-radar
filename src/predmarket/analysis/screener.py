@@ -50,7 +50,7 @@ def score_market(m: MarketSnapshot) -> ScreenedMarket:
 
     reasons: list[str] = []
     if c_vol24h >= 0.6:
-        reasons.append(f"high 24h volume (${m.volume_24h:,.0f})")
+        reasons.append(f"high 24h volume ({m.volume_24h:,.0f} {m.volume_unit})")
     if m.liquidity >= _REF_LIQUIDITY * 0.5:
         reasons.append(f"deep liquidity (${m.liquidity:,.0f})")
     if c_info >= 0.7:

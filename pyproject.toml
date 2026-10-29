@@ -17,5 +17,8 @@ dependencies = [
 [project.scripts]
 predmarket = "predmarket.cli:main"
 
+[tool.setuptools.package-data]
+predmarket = ["samples/fixture_*.json"]
+
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -50,11 +50,11 @@ analyst agent emit a structured judgement.
 |---|---|---|---|
 | Polymarket Gamma | `https://gamma-api.polymarket.com` | market catalogue (`/markets`, `/events`) | none (read) |
 | Polymarket CLOB | `https://clob.polymarket.com` | live midpoint, price history | none (read) |
-| Kalshi | `https://api.elections.kalshi.com/trade-api/v2` | `/markets`, `/events` | none (read); trading needs RSA-signed key |
+| Kalshi | `https://external-api.kalshi.com/trade-api/v2` | `/markets`, `/events` | none (read); trading needs RSA-signed key |
 
-Polymarket prices are already 0..1 decimals; Kalshi prices are integer **cents**
-(1..99) which are already the implied probability percent. The clients convert
-everything into one unified model.
+Polymarket prices use 0..1 decimals. Kalshi current fields use `_dollars` price strings
+and `_fp` contract counts; legacy integer-cent prices remain supported. Kalshi
+ISO-8601 and legacy Unix close times are supported. See the [official market schema](https://docs.kalshi.com/api-reference/market/get-markets).
 
 ## Unified data model
 
@@ -65,10 +65,11 @@ All venues normalise to `MarketSnapshot` (`src/predmarket/models.py`):
 | `venue` | `polymarket` / `kalshi` | source exchange |
 | `market_id` | str | condition_id (Polymarket) or ticker (Kalshi) |
 | `question` | str | the binary question |
-| `yes_prob` | float 0..1 | midpoint implied probability of YES |
+| `yes_prob` | float 0..1 | YES estimate: Kalshi quote midpoint with last-trade fallback; Polymarket outcome price |
 | `yes_bid` / `yes_ask` | float 0..1 | top of book on YES side |
-| `volume` / `volume_24h` | float | lifetime / 24h volume (USD) |
-| `liquidity` / `open_interest` | float | depth / open interest (USD) |
+| `volume` / `volume_24h` | float | lifetime / 24h activity in `volume_unit` |
+| `volume_unit` | str | USD/USDC turnover (Polymarket) or contracts (Kalshi) |
+| `liquidity` / `open_interest` | float | reported depth / venue-specific interest; missing depth uses 0 (unknown), Kalshi interest is contracts |
 | `active` / `closed` | bool | lifecycle |
 | `end_date` | datetime | resolution/close time |
 | `raw` | dict | original venue payload (debug / agent context) |
@@ -87,7 +88,7 @@ The agent layer consumes `AgentJudgement` (`thesis`, `direction`, `conviction`,
   `high_velocity` (24h volume ≥30% of lifetime).
 * **Cross-venue** — fuzzy-matches the same real-world question across venues (normalised
   tokens + small synonym map: *fed ≡ federal reserve ≡ fomc*, *rates ≡ rate*, …) and
-  flags a price dislocation ≥8pp — either an arbitrage, a stale quote, or unpriced news.
+  flags a candidate price gap ≥8pp. Different explicit years, numeric strikes, polarity and closed markets are rejected; settlement equivalence still needs manual verification.
 
 ## Agent judgement layer
 
@@ -104,7 +105,7 @@ one JSON `AgentJudgement` per market.
 ## Quickstart
 
 ```bash
-git clone https://github.com/<you>/predmarket-radar.git
+git clone https://github.com/jiaxuan881114-gif/predmarket-radar.git
 cd predmarket-radar
 pip install -r requirements.txt
 
@@ -123,6 +124,7 @@ Run the offline tests:
 
 ```bash
 PYTHONPATH=src python tests/test_offline.py
+PYTHONPATH=src python -m unittest discover -s tests -p test_regressions.py
 ```
 
 ## Sample output
@@ -159,3 +161,26 @@ This repo doubles as a portfolio piece. See:
 Public, read-only market data for research. Prediction markets carry tail risk; the
 agent output is a structured reasoning artefact, not investment advice. Nothing here
 submits orders or connects to a trading account.
+
+## Verification and remaining limits
+
+- Reviewed against upstream main `20a3bccc6e29f515948c5f1c77456b9dfc9fc79b`.
+- Original seven offline checks and twelve additional regression tests pass. The demo
+  contains ten fixture markets, anomalies, candidate cross-venue gaps and five mock judgements.
+- `demo` always uses MockAnalyst even when credentials exist. Fixtures are bundled
+  inside the installed package; output defaults to `samples/demo_report.json` in the working directory.
+- Live fetches are on-demand REST snapshots, not streaming subscriptions. Run `run`
+  repeatedly to accumulate momentum history; the first snapshot cannot show changes.
+- CLOB midpoint/history helper methods exist but are not called by the default pipeline.
+- Kalshi contract counts and Polymarket USD/USDC turnover are not equivalent units.
+  Screening weights remain a heuristic, not a calibrated cross-exchange value model;
+  open interest is not executable order-book depth.
+- Fuzzy cross-venue matching yields investigation candidates, not confirmed identical
+  settlement contracts or executable arbitrage. Fees, settlement rules and freshness
+  are not modelled. Cross-venue pairs appear in the report but are not yet agent inputs.
+- With a configured LLM, per-market API/validation failures are logged and omitted;
+  the mock is a no-key demonstration mode, not a silent replacement for failed real calls.
+- Total market-fetch failure now returns exit code 1 and an empty-current-data report;
+  old stored markets are never submitted to the agent as a fresh collection.
+- Live Polymarket and Kalshi checks timed out in this environment. Live connectivity
+  and real-LLM end-to-end behaviour remain unverified; offline tests do not prove them.

@@ -155,7 +155,7 @@ class PolymarketClient(BaseHttpClient):
             volume=_f(m.get("volume")),
             volume_24h=_f(m.get("volume24hr")),
             liquidity=_f(m.get("liquidity")),
-            open_interest=_f(m.get("clobRewards", {}).get("dailyLiquidity", 0)) if isinstance(m.get("clobRewards"), dict) else 0.0,
+            open_interest=0.0,  # Rewards are not open interest.
             active=bool(m.get("active", True)),
             closed=bool(m.get("closed", False)),
             end_date=end_date,

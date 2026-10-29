@@ -100,8 +100,8 @@ def find_cross_venue_dislocations(
     min_jaccard: float = _MIN_JACCARD,
     dislocation_pp: float = _DISLOCATION_PP,
 ) -> list[CrossVenuePair]:
-    poly = [m for m in markets if m.venue == Venue.POLYMARKET and m.active]
-    kalshi = [m for m in markets if m.venue == Venue.KALSHI and m.active]
+    poly = [m for m in markets if m.venue == Venue.POLYMARKET and m.active and not m.closed]
+    kalshi = [m for m in markets if m.venue == Venue.KALSHI and m.active and not m.closed]
     kal_norms = [(k, _normalize(k.question)) for k in kalshi]
 
     pairs: list[CrossVenuePair] = []
@@ -112,6 +112,12 @@ def find_cross_venue_dislocations(
         for k, kn in kal_norms:
             # Never pair a 2026 event with a 2027 event on the "same question".
             if not _years_compatible(p.question, k.question):
+                continue
+            # Distinct strikes and explicit opposite polarity are not the same event.
+            if re.findall(r"\d+(?:\.\d+)?", p.question) != re.findall(r"\d+(?:\.\d+)?", k.question):
+                continue
+            polarity = lambda title: bool(re.search(r"\b(no|not|never|below|under|less)\b", title.lower()))
+            if polarity(p.question) != polarity(k.question):
                 continue
             sim = _jaccard(pn, kn)
             if sim > best_sim:
