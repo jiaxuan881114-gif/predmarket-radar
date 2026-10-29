@@ -51,16 +51,17 @@ class MarketSnapshot(BaseModel):
     url: Optional[str] = None
 
     # Core pricing (all probabilities in 0..1)
-    yes_prob: float = Field(ge=0, le=1, description="Midpoint implied probability of YES")
+    yes_prob: float = Field(ge=0, le=1, description="YES probability estimate; source-specific quote or last trade")
     yes_bid: Optional[float] = Field(default=None, ge=0, le=1)
     yes_ask: Optional[float] = Field(default=None, ge=0, le=1)
     last_price: Optional[float] = Field(default=None, ge=0, le=1)
 
     # Liquidity / activity (USD where the venue reports USD; contracts otherwise)
-    volume: float = Field(default=0.0, description="Lifetime volume in USD")
-    volume_24h: float = Field(default=0.0, description="Last-24h volume in USD")
+    volume_unit: str = Field(default="USD", description="USD/USDC turnover or contracts")
+    volume: float = Field(default=0.0, description="Lifetime volume in volume_unit")
+    volume_24h: float = Field(default=0.0, description="Last-24h volume in volume_unit")
     liquidity: float = Field(default=0.0, description="Order-book liquidity / depth in USD")
-    open_interest: float = Field(default=0.0, description="Open interest in USD")
+    open_interest: float = Field(default=0.0, description="Open interest in venue units; Kalshi contracts")
 
     # Lifecycle
     active: bool = True

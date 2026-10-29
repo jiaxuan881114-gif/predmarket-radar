@@ -19,7 +19,7 @@ from .pipeline import Collector, SnapshotStore
 
 log = logging.getLogger("predmarket")
 
-_SAMPLES = Path(__file__).resolve().parents[2] / "samples"
+_SAMPLES = Path(__file__).resolve().parent / "samples"
 
 
 def _load_fixtures() -> list[MarketSnapshot]:
@@ -34,11 +34,12 @@ def _load_fixtures() -> list[MarketSnapshot]:
 
 def cmd_run(args: argparse.Namespace) -> int:
     collector = Collector(store=SnapshotStore(args.data_dir))
-    report = collector.collect(limit_per_venue=args.limit, top_n=args.top_n)
+    report = collector.collect(limit_per_venue=args.limit, top_n=args.top_n,
+                               kalshi_series=getattr(args, "kalshi_series", None))
 
     # Agent layer on the top screened markets from the latest stored snapshot.
     analyst = build_analyst()
-    latest = collector.store.latest()
+    latest = collector.current_markets
     screened = screen_markets(latest, top_n=args.agent_limit)
     moves = [ProbabilityMove.model_validate(m) for m in report.probability_moves]
     anomalies = [AnomalySignal.model_validate(a) for a in report.anomalies]
@@ -53,7 +54,7 @@ def cmd_run(args: argparse.Namespace) -> int:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report_dict, indent=2, default=str), encoding="utf-8")
     print(json.dumps({"wrote": str(out), "totals": report.totals, "errors": report.errors}, indent=2))
-    return 0
+    return 0 if report.totals["markets_fetched"] else 1
 
 
 def cmd_demo(args: argparse.Namespace) -> int:
@@ -94,7 +95,7 @@ def cmd_demo(args: argparse.Namespace) -> int:
         "agent_judgements": [j.model_dump(mode="json") for j in judgements],
         "note": "offline demo on bundled fixtures; agent forced to MockAnalyst (real LLM only via `run`)",
     }
-    out = Path(args.out) if args.out else _SAMPLES / "demo_report.json"
+    out = Path(args.out) if args.out else Path("samples/demo_report.json")
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, indent=2, default=str), encoding="utf-8")
     print(json.dumps({"wrote": str(out), "totals": report["totals"]}, indent=2))
@@ -106,6 +107,7 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     p_run = sub.add_parser("run", help="live fetch from exchanges")
+    p_run.add_argument("--kalshi-series", action="append", help="Repeat to target overlapping event series")
     p_run.add_argument("--limit", type=int, default=100)
     p_run.add_argument("--top-n", type=int, default=25)
     p_run.add_argument("--agent-limit", type=int, default=5)
@@ -118,6 +120,9 @@ def main(argv: list[str] | None = None) -> int:
     p_demo.add_argument("--agent-limit", type=int, default=5)
     p_demo.add_argument("--out", default=None)
     p_demo.set_defaults(func=cmd_demo)
+
+    from .pairing_cli import register_match_command
+    register_match_command(sub)
 
     args = parser.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")

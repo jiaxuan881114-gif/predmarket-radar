@@ -1,0 +1,118 @@
+{
+  "model": "gpt-6-luna",
+  "candidate_count": 6,
+  "reviewed_count": 6,
+  "decisions": [
+    {
+      "polymarket_id": "0x8a4196617dcb703e49d9bb36d3847bf6a75fd364dbd19f8d408ac944bf1a03d8",
+      "kalshi_id": "KXFEDDECISION-26DEC-H25",
+      "status": "different_event",
+      "confidence": 0.87,
+      "subject": "match",
+      "condition": "different",
+      "time_window": "match",
+      "resolution_rules": "different",
+      "yes_polarity": "match",
+      "reason": "Both concern a Fed rate increase at the December 2026 meeting, and YES represents a hike in both. But Polymarket explicitly rounds a 12.5 bps increase up to 25 bps, while Kalshi describes YES as a hike of 25 bps and its mutually exclusive-outcomes example indicates a 50 bps hike is not the 25 bps outcome. The differing treatment means the YES conditions are not equivalent. The differing fallback and settlement provisions also prevent the resolution rules from matching.",
+      "missing_information": [
+        "Kalshi's secondary example repeats “Hike 25 bps” for both outcomes, leaving that example's second outcome label unclear."
+      ],
+      "candidate_similarity": 1.0,
+      "dislocation_pp": null
+    },
+    {
+      "polymarket_id": "0x8a4196617dcb703e49d9bb36d3847bf6a75fd364dbd19f8d408ac944bf1a03d8",
+      "kalshi_id": "KXFEDDECISION-26DEC-H26",
+      "status": "different_event",
+      "confidence": 0.98,
+      "subject": "match",
+      "condition": "different",
+      "time_window": "match",
+      "resolution_rules": "unknown",
+      "yes_polarity": "match",
+      "reason": "Both concern a rate increase at the December 2026 FOMC meeting, and YES points in the direction of a hike. But the conditions differ: Polymarket describes an increase rounded up to the nearest 25 bps, while Kalshi's rules distinguish a hike greater than 25 bps from a 25 bps hike. In particular, Kalshi says a 50 bps hike resolves its >25 bps contract to Yes, whereas Polymarket describes a 25 bps bracket. The stated meeting dates align; the different close times are trading metadata.",
+      "missing_information": [
+        "Kalshi's supplied rules do not specify a resolution source or fully explain how nonstandard rate changes are measured."
+      ],
+      "candidate_similarity": 1.0,
+      "dislocation_pp": null
+    },
+    {
+      "polymarket_id": "0xf17ad24eb4ad57926495b114149c765b9b95bc286eadc91cbbfa901ceb10d0b8",
+      "kalshi_id": "KXFEDDECISION-26DEC-C25",
+      "status": "uncertain",
+      "confidence": 0.9,
+      "subject": "match",
+      "condition": "unknown",
+      "time_window": "match",
+      "resolution_rules": "unknown",
+      "yes_polarity": "match",
+      "reason": "Both contracts concern a 25 bps Fed rate cut at the December 2026 meeting, with YES indicating that cut. The stated meeting dates align. However, Polymarket specifies how nonstandard changes are rounded, while the supplied Kalshi rules do not say whether such changes count as a 25 bps cut. The evidence also does not establish that their settlement sources and other resolution details are equivalent, so exact equivalence cannot be confirmed.",
+      "missing_information": [
+        "Whether Kalshi treats nonstandard changes, such as a 12.5 bps cut, as a 25 bps cut.",
+        "Kalshi's settlement source and any further rules defining how the rate change is measured."
+      ],
+      "candidate_similarity": 1.0,
+      "dislocation_pp": null
+    },
+    {
+      "polymarket_id": "0xf17ad24eb4ad57926495b114149c765b9b95bc286eadc91cbbfa901ceb10d0b8",
+      "kalshi_id": "KXFEDDECISION-26DEC-C26",
+      "status": "different_event",
+      "confidence": 0.91,
+      "subject": "match",
+      "condition": "different",
+      "time_window": "match",
+      "resolution_rules": "unknown",
+      "yes_polarity": "match",
+      "reason": "Both concern a rate cut at the December 2026 FOMC meeting, but Polymarket YES is for a 25 bps decrease (with its stated rounding rule), while Kalshi's question and YES subtitle specify a cut greater than 25 bps. Kalshi's primary rule text instead says a cut of 25 bps, creating ambiguity. The different stated thresholds are enough to distinguish the events.",
+      "missing_information": [
+        "Clarification of Kalshi's primary rule text, which says a cut of 25 bps despite the question and YES subtitle specifying greater than 25 bps.",
+        "Complete Kalshi settlement rules and resolution source."
+      ],
+      "candidate_similarity": 1.0,
+      "dislocation_pp": null
+    },
+    {
+      "polymarket_id": "0x8a4196617dcb703e49d9bb36d3847bf6a75fd364dbd19f8d408ac944bf1a03d8",
+      "kalshi_id": "KXFEDDECISION-26DEC-C26",
+      "status": "different_event",
+      "confidence": 0.99,
+      "subject": "match",
+      "condition": "different",
+      "time_window": "match",
+      "resolution_rules": "unknown",
+      "yes_polarity": "different",
+      "reason": "Both concern Federal Reserve rate decisions at the December 2026 meeting, but Polymarket YES is an increase of 25 bps, whereas Kalshi YES is described as a rate cut. The conditions and YES outcomes therefore differ. Kalshi's title says a cut greater than 25 bps, while its primary rule says a cut of 25 bps, leaving its exact threshold unclear.",
+      "missing_information": [
+        "Kalshi's exact cut threshold is unclear because its title and primary rule conflict.",
+        "Kalshi settlement source and complete resolution rules are not supplied."
+      ],
+      "candidate_similarity": 0.7143,
+      "dislocation_pp": null
+    },
+    {
+      "polymarket_id": "0xf17ad24eb4ad57926495b114149c765b9b95bc286eadc91cbbfa901ceb10d0b8",
+      "kalshi_id": "KXFEDDECISION-26DEC-H26",
+      "status": "different_event",
+      "confidence": 0.99,
+      "subject": "match",
+      "condition": "different",
+      "time_window": "match",
+      "resolution_rules": "different",
+      "yes_polarity": "different",
+      "reason": "Both concern the Federal Reserve's December 2026 meeting, but Polymarket YES is a 25 bps rate decrease while Kalshi YES is a rate hike greater than 25 bps. Their settlement descriptions also differ: Polymarket specifies the upper bound of the target range, rounding, and official sources; Kalshi's supplied hike wording is internally inconsistent.",
+      "missing_information": [
+        "Kalshi's rules inconsistently describe its threshold as both a hike of 25 bps and a hike greater than 25 bps."
+      ],
+      "candidate_similarity": 0.7143,
+      "dislocation_pp": null
+    }
+  ],
+  "confirmed_pairs": [],
+  "errors": [],
+  "generated_at": "2026-10-29T08:56:23.337449+00:00",
+  "source_snapshot": "samples/pairing_markets.json",
+  "markets_loaded": 550,
+  "note": "LLM equivalence review on saved data; gaps are indicative, not executable arbitrage."
+}

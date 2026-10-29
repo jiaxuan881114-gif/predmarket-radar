@@ -1,0 +1,285 @@
+{
+  "fetched_at": "2026-10-29T09:34:54.254747+00:00",
+  "count": 7,
+  "markets": [
+    {
+      "venue": "polymarket",
+      "market_id": "0xf77fa3e63014f1f76ea4433dac66b3860493ed7f1a9fee3dfbef9104d7f1eee3",
+      "event_id": null,
+      "question": "Will Likud win the most seats in the 2026 Israeli legislative election?",
+      "url": "https://polymarket.com/market/will-likud-win-the-most-seats-in-the-2026-israeli-legislative-election",
+      "yes_prob": 0.9895,
+      "yes_bid": 0.988,
+      "yes_ask": 0.991,
+      "last_price": 0.988,
+      "volume_unit": "USD",
+      "volume": 8616641.093202999,
+      "volume_24h": 1165829.565724,
+      "liquidity": 373530.48916,
+      "open_interest": 0.0,
+      "active": true,
+      "closed": false,
+      "end_date": "2026-10-28T03:59:00Z",
+      "fetched_at": "2026-10-29T09:34:47.577400Z",
+      "raw": {
+        "description": "Legislative elections are expected to be held in Israel on October 27, 2026.\n\nThis market will resolve according to the political party or coalition that wins the greatest number of seats in the Israeli Knesset as a result of this election.\n\nIf the results of this election are not definitively known by June 30, 2027, 11:59 PM ET, this market will resolve to \"Other\".\n\nIn the event of a tie between multiple parties or coalitions for the most seats won, this market will resolve in favor of the party or coalition whose candidate list received a greater number of valid votes. In the event that results in a tie, this market will resolve in favor of the party whose listed name appears first in alphabetical order.\n\nThis market's resolution will be based solely on the number of seats won by the named party or coalition in the Israeli Knesset.\n\nThis market will resolve based on the election results, as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by Israel’s Central Election Committee (Va'adet HaBehirot HaMerkazit) (https://www.gov.il/en/departments/central-elections-committee/govil-landing-page).\n\nThe following rules govern the merging, joint contention, and splitting of listed parties:\n\n- If Likud or Together (or any successor party created through a merger) merge with or contest the election jointly with any other party, the option corresponding to Likud or Together will represent the resultant candidate list or merged party. \n\nOtherwise:\n\n- If a listed party merges with, or contests the election as part of a joint candidate list with, one or more unlisted parties prior to the election, the option corresponding to the listed party will represent all seats won by the merged party or joint candidate list. If a listed party merges with, or contests the election as part of a joint candidate list with, one or more other listed parties prior to the election, the option corresponding to the party which held the most seats in the prior Knesset will represent all seats won by the merged party/joint candidate list. If these rules do not adequately determine which option represents a merged party or joint candidate list, the listed party whose name, as listed in this market, comes first in alphabetical order, will represent all seats won by the merged party or joint candidate list.\n\n- If a listed party splits into multiple parties prior to the election, the option corresponding to the listed party will represent the resulting party that holds the greatest number of seats in the Israeli Knesset as a result of the split. If these rules do not adequately determine which party represents a listed option after a split, the listed option will represent all seats won by the party resulting from the split whose primary English name comes first in alphabetical order.\n",
+        "resolution_source": "https://www.gov.il/en/departments/central-elections-committee/govil-landing-page",
+        "slug": "will-likud-win-the-most-seats-in-the-2026-israeli-legislative-election",
+        "outcomes": [
+          "Yes",
+          "No"
+        ],
+        "clobTokenIds": [
+          "40530616708770133196461535468385029946615148250396571867031554779644977064648",
+          "112833774316104951988690985316609270957261648365641646812446420693891587882096"
+        ],
+        "bestBid": 0.988,
+        "bestAsk": 0.991
+      }
+    },
+    {
+      "venue": "polymarket",
+      "market_id": "0xd05da9807740aa0f5bc9e9232daabe87a21e5012c19e283abf414f1c1651118b",
+      "event_id": null,
+      "question": "Will Yashar win the most seats in the 2026 Israeli legislative election?",
+      "url": "https://polymarket.com/market/will-yashar-win-the-most-seats-in-the-2026-israeli-legislative-election",
+      "yes_prob": 0.003,
+      "yes_bid": 0.002,
+      "yes_ask": 0.004,
+      "last_price": 0.002,
+      "volume_unit": "USD",
+      "volume": 4120729.334707,
+      "volume_24h": 160400.823081,
+      "liquidity": 189899.17155,
+      "open_interest": 0.0,
+      "active": true,
+      "closed": false,
+      "end_date": "2026-10-28T03:59:00Z",
+      "fetched_at": "2026-10-29T09:34:47.578045Z",
+      "raw": {
+        "description": "Legislative elections are expected to be held in Israel on October 27, 2026.\n\nThis market will resolve according to the political party or coalition that wins the greatest number of seats in the Israeli Knesset as a result of this election.\n\nIf the results of this election are not definitively known by June 30, 2027, 11:59 PM ET, this market will resolve to \"Other\".\n\nIn the event of a tie between multiple parties or coalitions for the most seats won, this market will resolve in favor of the party or coalition whose candidate list received a greater number of valid votes. In the event that results in a tie, this market will resolve in favor of the party whose listed name appears first in alphabetical order.\n\nThis market's resolution will be based solely on the number of seats won by the named party or coalition in the Israeli Knesset.\n\nThis market will resolve based on the election results, as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by Israel’s Central Election Committee (Va'adet HaBehirot HaMerkazit) (https://www.gov.il/en/departments/central-elections-committee/govil-landing-page).\n\nThe following rules govern the merging, joint contention, and splitting of listed parties:\n\n- If Likud or Together (or any successor party created through a merger) merge with or contest the election jointly with any other party, the option corresponding to Likud or Together will represent the resultant candidate list or merged party. \n\nOtherwise:\n\n- If a listed party merges with, or contests the election as part of a joint candidate list with, one or more unlisted parties prior to the election, the option corresponding to the listed party will represent all seats won by the merged party or joint candidate list. If a listed party merges with, or contests the election as part of a joint candidate list with, one or more other listed parties prior to the election, the option corresponding to the party which held the most seats in the prior Knesset will represent all seats won by the merged party/joint candidate list. If these rules do not adequately determine which option represents a merged party or joint candidate list, the listed party whose name, as listed in this market, comes first in alphabetical order, will represent all seats won by the merged party or joint candidate list.\n\n- If a listed party splits into multiple parties prior to the election, the option corresponding to the listed party will represent the resulting party that holds the greatest number of seats in the Israeli Knesset as a result of the split. If these rules do not adequately determine which party represents a listed option after a split, the listed option will represent all seats won by the party resulting from the split whose primary English name comes first in alphabetical order.\n",
+        "resolution_source": "https://www.gov.il/en/departments/central-elections-committee/govil-landing-page",
+        "slug": "will-yashar-win-the-most-seats-in-the-2026-israeli-legislative-election",
+        "outcomes": [
+          "Yes",
+          "No"
+        ],
+        "clobTokenIds": [
+          "9025448570994866714151390167666974197623007132973626623412960268955048642964",
+          "63424755361185170901233281121558927457624032744827678779847584269740504139135"
+        ],
+        "bestBid": 0.002,
+        "bestAsk": 0.004
+      }
+    },
+    {
+      "venue": "polymarket",
+      "market_id": "0x4e9cff8a3aeac036225fedcc98af9b0d55284b3f430b599e7f61b059c1e177af",
+      "event_id": null,
+      "question": "Will Together win the most seats in the 2026 Israeli legislative election?",
+      "url": "https://polymarket.com/market/will-together-win-the-most-seats-in-the-2026-israeli-legislative-election",
+      "yes_prob": 0.0005,
+      "yes_bid": null,
+      "yes_ask": 0.001,
+      "last_price": 0.001,
+      "volume_unit": "USD",
+      "volume": 2438239.225958,
+      "volume_24h": 100000.0,
+      "liquidity": 252009.36474,
+      "open_interest": 0.0,
+      "active": true,
+      "closed": false,
+      "end_date": "2026-10-28T03:59:00Z",
+      "fetched_at": "2026-10-29T09:34:47.578654Z",
+      "raw": {
+        "description": "Legislative elections are expected to be held in Israel on October 27, 2026.\n\nThis market will resolve according to the political party or coalition that wins the greatest number of seats in the Israeli Knesset as a result of this election.\n\nIf the results of this election are not definitively known by June 30, 2027, 11:59 PM ET, this market will resolve to \"Other\".\n\nIn the event of a tie between multiple parties or coalitions for the most seats won, this market will resolve in favor of the party or coalition whose candidate list received a greater number of valid votes. In the event that results in a tie, this market will resolve in favor of the party whose listed name appears first in alphabetical order.\n\nThis market's resolution will be based solely on the number of seats won by the named party or coalition in the Israeli Knesset.\n\nThis market will resolve based on the election results, as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by Israel’s Central Election Committee (Va'adet HaBehirot HaMerkazit) (https://www.gov.il/en/departments/central-elections-committee/govil-landing-page).\n\nThe following rules govern the merging, joint contention, and splitting of listed parties:\n\n- If Likud or Together (or any successor party created through a merger) merge with or contest the election jointly with any other party, the option corresponding to Likud or Together will represent the resultant candidate list or merged party. \n\nOtherwise:\n\n- If a listed party merges with, or contests the election as part of a joint candidate list with, one or more unlisted parties prior to the election, the option corresponding to the listed party will represent all seats won by the merged party or joint candidate list. If a listed party merges with, or contests the election as part of a joint candidate list with, one or more other listed parties prior to the election, the option corresponding to the party which held the most seats in the prior Knesset will represent all seats won by the merged party/joint candidate list. If these rules do not adequately determine which option represents a merged party or joint candidate list, the listed party whose name, as listed in this market, comes first in alphabetical order, will represent all seats won by the merged party or joint candidate list.\n\n- If a listed party splits into multiple parties prior to the election, the option corresponding to the listed party will represent the resulting party that holds the greatest number of seats in the Israeli Knesset as a result of the split. If these rules do not adequately determine which party represents a listed option after a split, the listed option will represent all seats won by the party resulting from the split whose primary English name comes first in alphabetical order.\n",
+        "resolution_source": "https://www.gov.il/en/departments/central-elections-committee/govil-landing-page",
+        "slug": "will-together-win-the-most-seats-in-the-2026-israeli-legislative-election",
+        "outcomes": [
+          "Yes",
+          "No"
+        ],
+        "clobTokenIds": [
+          "4486291330995931849416559581383425061287287542982906092720569789339786774392",
+          "17536997240040421052821175590718482940149024324949123126034467190302150640963"
+        ],
+        "bestBid": null,
+        "bestAsk": 0.001
+      }
+    },
+    {
+      "venue": "polymarket",
+      "market_id": "0x0aeafd983d87efa8403ca903513950b4b1906f442219c28e5486b66b87545a69",
+      "event_id": null,
+      "question": "Will Together win the third-most seats in the 2026 Israeli legislative election?",
+      "url": "https://polymarket.com/market/will-together-win-the-third-most-seats-israel-2026",
+      "yes_prob": 0.9705,
+      "yes_bid": 0.963,
+      "yes_ask": 0.978,
+      "last_price": 0.965,
+      "volume_unit": "USD",
+      "volume": 303106.39412199997,
+      "volume_24h": 95754.479889,
+      "liquidity": 30058.99958,
+      "open_interest": 0.0,
+      "active": true,
+      "closed": false,
+      "end_date": "2026-10-28T03:59:00Z",
+      "fetched_at": "2026-10-29T09:34:47.578760Z",
+      "raw": {
+        "description": "Legislative elections are expected to be held in Israel on October 27, 2026.\n\nThis market will resolve according to the political party or coalition that wins the third-greatest number of seats in the Israeli Knesset as a result of this election.\n\nThe named parties and coalitions will be primarily ranked by the number of seats won in the specified election. If two or more parties or coalitions are tied on seats, ties will be broken by the total number of valid votes received by each party or coalition, with higher vote totals ranking higher. If parties or coalitions remain tied, ties will be broken by alphabetical order of the listed party or coalition names. This market will resolve to the party or coalition that occupies the third finishing position after applying this ranking.\n\nIf the results of this election are not definitively known by June 30, 2027, 11:59 PM ET, this market will resolve to \"Other\".\n\nThis market's resolution will be based solely on the number of seats won by the named party or coalition in the Israeli Knesset.\n\nThis market will resolve based on the election results, as indicated by a consensus of credible reporting. If there is ambiguity, this market will resolve based solely on the official results as reported by the Israeli government, including the Central Election Committee (Va'adet HaBehirot HaMerkazit) (https://www.gov.il/en/departments/central-elections-committee/govil-landing-page).",
+        "resolution_source": "",
+        "slug": "will-together-win-the-third-most-seats-israel-2026",
+        "outcomes": [
+          "Yes",
+          "No"
+        ],
+        "clobTokenIds": [
+          "58700110941929434349615594345834044182277101206039845262306723119058516080070",
+          "94989240942321171035181144919679918530828890353752041741893721623522447140887"
+        ],
+        "bestBid": 0.963,
+        "bestAsk": 0.978
+      }
+    },
+    {
+      "venue": "kalshi",
+      "market_id": "KXISRAELKNESSET-26-TOGE",
+      "event_id": "KXISRAELKNESSET-26",
+      "question": "Will Together win the next Israeli legislative election?",
+      "url": "https://kalshi.com/markets/KXISRAELKNESSET-26-TOGE",
+      "yes_prob": 0.005,
+      "yes_bid": 0.0,
+      "yes_ask": 0.01,
+      "last_price": 0.01,
+      "volume_unit": "contracts",
+      "volume": 7496.47,
+      "volume_24h": 431.11,
+      "liquidity": 0.0,
+      "open_interest": 5509.97,
+      "active": true,
+      "closed": false,
+      "end_date": "2027-10-27T14:00:00Z",
+      "fetched_at": "2026-10-29T09:34:53.118770Z",
+      "raw": {
+        "event_ticker": "KXISRAELKNESSET-26",
+        "sub_title": "Together",
+        "yes_sub_title": "Together",
+        "no_sub_title": "Together",
+        "rules_primary": "If the winner of the next Israeli legislative election is Together, then the market resolves to Yes.",
+        "rules_secondary": "For parliamentary/legislative elections, the winner is the party, coalition, or alliance winning the most seats in the specified chamber. If two parties have the same number of seats, the one entering government will resolve to Yes and all others to No; if both or neither enter government, the one with the higher share of the vote will resolve to Yes and all others to No.\n\nThis market may resolve early once a consensus of designated media sources has declared a winner. See full rules for details.",
+        "strike_type": "custom",
+        "floor_strike": null,
+        "cap_strike": null,
+        "expected_expiration_time": "2027-11-27T15:00:00Z",
+        "yes_bid_cents": null,
+        "yes_ask_cents": null,
+        "series_evidence": {
+          "ticker": "KXISRAELKNESSET",
+          "title": "Israeli Knesset election",
+          "settlement_sources": [
+            {
+              "name": "the official electoral commission, constitutional court, or equivalent electoral authority of the relevant jurisdiction",
+              "url": "https://kalshi.com/"
+            }
+          ],
+          "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/ELECTION.pdf",
+          "contract_terms_url": "https://assets.kalshi.com/contract_terms/ELECTION.pdf"
+        }
+      }
+    },
+    {
+      "venue": "kalshi",
+      "market_id": "KXISRAELKNESSET-26-YAS",
+      "event_id": "KXISRAELKNESSET-26",
+      "question": "Will Yashar win the next Israeli legislative election?",
+      "url": "https://kalshi.com/markets/KXISRAELKNESSET-26-YAS",
+      "yes_prob": 0.005,
+      "yes_bid": 0.0,
+      "yes_ask": 0.01,
+      "last_price": 0.01,
+      "volume_unit": "contracts",
+      "volume": 86036.15,
+      "volume_24h": 10260.03,
+      "liquidity": 0.0,
+      "open_interest": 34327.38,
+      "active": true,
+      "closed": false,
+      "end_date": "2027-10-27T14:00:00Z",
+      "fetched_at": "2026-10-29T09:34:53.118839Z",
+      "raw": {
+        "event_ticker": "KXISRAELKNESSET-26",
+        "sub_title": null,
+        "yes_sub_title": "Yashar",
+        "no_sub_title": "Yashar",
+        "rules_primary": "If the winner of the next Israeli legislative election is Yashar, then the market resolves to Yes.",
+        "rules_secondary": "For parliamentary/legislative elections, the winner is the party, coalition, or alliance winning the most seats in the specified chamber. If two parties have the same number of seats, the one entering government will resolve to Yes and all others to No; if both or neither enter government, the one with the higher share of the vote will resolve to Yes and all others to No.\n\nThis market may resolve early once a consensus of designated media sources has declared a winner. See full rules for details.",
+        "strike_type": "custom",
+        "floor_strike": null,
+        "cap_strike": null,
+        "expected_expiration_time": "2027-11-27T15:00:00Z",
+        "yes_bid_cents": null,
+        "yes_ask_cents": null,
+        "series_evidence": {
+          "ticker": "KXISRAELKNESSET",
+          "title": "Israeli Knesset election",
+          "settlement_sources": [
+            {
+              "name": "the official electoral commission, constitutional court, or equivalent electoral authority of the relevant jurisdiction",
+              "url": "https://kalshi.com/"
+            }
+          ],
+          "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/ELECTION.pdf",
+          "contract_terms_url": "https://assets.kalshi.com/contract_terms/ELECTION.pdf"
+        }
+      }
+    },
+    {
+      "venue": "kalshi",
+      "market_id": "KXISRAELKNESSET-26-BEN",
+      "event_id": "KXISRAELKNESSET-26",
+      "question": "Will Bennett 2026 win the next Israeli legislative election?",
+      "url": "https://kalshi.com/markets/KXISRAELKNESSET-26-BEN",
+      "yes_prob": 0.004,
+      "yes_bid": 0.0,
+      "yes_ask": 0.008,
+      "last_price": 0.002,
+      "volume_unit": "contracts",
+      "volume": 47123.61,
+      "volume_24h": 0.0,
+      "liquidity": 0.0,
+      "open_interest": 27836.67,
+      "active": true,
+      "closed": false,
+      "end_date": "2027-10-27T14:00:00Z",
+      "fetched_at": "2026-10-29T09:34:53.118878Z",
+      "raw": {
+        "event_ticker": "KXISRAELKNESSET-26",
+        "sub_title": ":: placeholder name",
+        "yes_sub_title": "Bennett 2026",
+        "no_sub_title": "Bennett 2026",
+        "rules_primary": "If the winner of the next Israeli legislative election is Bennett 2026, then the market resolves to Yes.",
+        "rules_secondary": "For parliamentary/legislative elections, the winner is the party, coalition, or alliance winning the most seats in the specified chamber. If two parties have the same number of seats, the one entering government will resolve to Yes and all others to No; if both or neither enter government, the one with the higher share of the vote will resolve to Yes and all others to No.\n\nThis market may resolve early once a consensus of designated media sources has declared a winner. See full rules for details.",
+        "strike_type": "custom",
+        "floor_strike": null,
+        "cap_strike": null,
+        "expected_expiration_time": "2027-11-27T15:00:00Z",
+        "yes_bid_cents": null,
+        "yes_ask_cents": null,
+        "series_evidence": {
+          "ticker": "KXISRAELKNESSET",
+          "title": "Israeli Knesset election",
+          "settlement_sources": [
+            {
+              "name": "the official electoral commission, constitutional court, or equivalent electoral authority of the relevant jurisdiction",
+              "url": "https://kalshi.com/"
+            }
+          ],
+          "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/ELECTION.pdf",
+          "contract_terms_url": "https://assets.kalshi.com/contract_terms/ELECTION.pdf"
+        }
+      }
+    }
+  ],
+  "note": "Real Israel-election candidate subset from a 575-market API collection, not exhaustive."
+}

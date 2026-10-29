@@ -40,7 +40,7 @@ def detect_anomalies(markets: list[MarketSnapshot]) -> list[AnomalySignal]:
                 severity="info",
                 market_id=m.market_id,
                 venue=m.venue,
-                detail=f"$ {m.liquidity:,.0f} depth but $ {m.volume_24h:,.0f} 24h volume",
+                detail=f"$ {m.liquidity:,.0f} depth but {m.volume_24h:,.0f} {m.volume_unit} 24h volume",
                 metric=m.liquidity,
             ))
 
@@ -51,7 +51,7 @@ def detect_anomalies(markets: list[MarketSnapshot]) -> list[AnomalySignal]:
                 severity="info",
                 market_id=m.market_id,
                 venue=m.venue,
-                detail=f"priced {m.yes_prob:.0%} ({side}) with $ {m.volume_24h:,.0f} 24h volume",
+                detail=f"priced {m.yes_prob:.0%} ({side}) with {m.volume_24h:,.0f} {m.volume_unit} 24h volume",
                 metric=m.yes_prob,
             ))
 

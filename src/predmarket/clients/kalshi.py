@@ -1,10 +1,10 @@
 """Kalshi data client (read-only).
 
-Base URL: https://api.elections.kalshi.com/trade-api/v2
+Base URL: https://external-api.kalshi.com/trade-api/v2
 
 Kalshi prices are integer **cents** (1..99), which are already the implied probability
 percent (a YES bid of 62 == 62%). Volume is reported in number of contracts; we treat
-it as USD notional for cross-venue comparison (each contract settles at $1).
+it as contract count, not traded USD. Current prices use dollar strings.
 
 Public market listing does not require a key. Private/trading endpoints require an
 RSA-signed KALSHI-ACCESS-* header set — out of scope for this read-only radar.
@@ -12,6 +12,7 @@ RSA-signed KALSHI-ACCESS-* header set — out of scope for this read-only radar.
 from __future__ import annotations
 
 import logging
+import math
 from datetime import datetime, timezone
 from typing import Any, Optional
 
@@ -25,20 +26,25 @@ def _f(value: Any, default: float = 0.0) -> float:
     try:
         if value in (None, "", "null"):
             return default
-        return float(value)
+        number = float(value)
+        return number if math.isfinite(number) else default
     except (TypeError, ValueError):
         return default
 
 
 class KalshiClient(BaseHttpClient):
-    base_url = "https://api.elections.kalshi.com/trade-api/v2"
+    base_url = "https://external-api.kalshi.com/trade-api/v2"
 
-    def list_active_markets(self, limit: int = 100, status: str = "open") -> list[MarketSnapshot]:
+    def list_active_markets(self, limit: int = 100, status: str = "open",
+                            series_ticker: Optional[str] = None) -> list[MarketSnapshot]:
         """Fetch open markets, paginating via cursor up to `limit` total."""
         out: list[MarketSnapshot] = []
         cursor: Optional[str] = None
+        seen_cursors: set[str] = set()
         while len(out) < limit:
-            params: dict[str, Any] = {"status": status, "limit": min(limit - len(out), 200)}
+            params: dict[str, Any] = {"status": status, "limit": min(limit - len(out), 200), "mve_filter": "exclude"}
+            if series_ticker:
+                params["series_ticker"] = series_ticker
             if cursor:
                 params["cursor"] = cursor
             data = self._get("/markets", params=params)
@@ -48,8 +54,23 @@ class KalshiClient(BaseHttpClient):
                 if snap is not None:
                     out.append(snap)
             cursor = data.get("cursor") if isinstance(data, dict) else None
-            if not cursor:
+            if not cursor or cursor in seen_cursors:
                 break
+            seen_cursors.add(cursor)
+        if series_ticker and out:
+            try:
+                series = self._get(f"/series/{series_ticker}").get("series", {})
+                if series.get("ticker") != series_ticker:
+                    raise ValueError("series identity does not match request")
+                evidence = {key: series.get(key) for key in (
+                    "ticker", "title", "settlement_sources", "contract_url", "contract_terms_url",
+                )}
+                for market in out:
+                    market.raw["series_evidence"] = evidence
+            except Exception as exc:
+                # Keep collected markets, but expose missing evidence in the report.
+                for market in out:
+                    market.raw["series_evidence_error"] = type(exc).__name__
         log.info("Kalshi: %d open markets", len(out))
         return out[:limit]
 
@@ -63,31 +84,36 @@ class KalshiClient(BaseHttpClient):
         if not title or not ticker:
             return None
 
-        # Cents -> probability (0..1). last_price may be None pre-first-trade.
-        last_cents = m.get("last_price")
-        yes_bid_c = m.get("yes_bid")
-        yes_ask_c = m.get("yes_ask")
+        if m.get("market_type", "binary") != "binary":
+            return None
 
-        yes_bid = _f(yes_bid_c, None) / 100.0 if yes_bid_c is not None else None
-        yes_ask = _f(yes_ask_c, None) / 100.0 if yes_ask_c is not None else None
-        last_price = _f(last_cents, None) / 100.0 if last_cents is not None else None
+        # Current API uses dollar strings; retain legacy cents compatibility.
+        def price(name: str) -> Optional[float]:
+            value = _f(m.get(f"{name}_dollars"), None)
+            if value is None:
+                cents = _f(m.get(name), None)
+                value = cents / 100 if cents is not None else None
+            return value if value is not None and 0 <= value <= 1 else None
 
-        if last_price is None:
-            if yes_bid is not None and yes_ask is not None:
-                yes_prob = (yes_bid + yes_ask) / 2
-            else:
-                return None
-        else:
+        last_cents, yes_bid_c, yes_ask_c = (m.get(k) for k in ("last_price", "yes_bid", "yes_ask"))
+        yes_bid, yes_ask, last_price = (price(k) for k in ("yes_bid", "yes_ask", "last_price"))
+        if yes_bid is not None and yes_ask is not None and yes_bid <= yes_ask:
+            yes_prob = (yes_bid + yes_ask) / 2
+        elif last_price is not None:
             yes_prob = last_price
+        else:
+            return None
 
         close_time = m.get("close_time") or m.get("expected_expiration_time")
         end_date = None
         if close_time:
             try:
-                # Kalshi sends unix seconds (string or int)
-                end_date = datetime.fromtimestamp(int(close_time), tz=timezone.utc)
+                end_date = datetime.fromisoformat(str(close_time).replace("Z", "+00:00"))
             except (ValueError, TypeError):
-                pass
+                try:
+                    end_date = datetime.fromtimestamp(float(close_time), tz=timezone.utc)
+                except (ValueError, TypeError, OverflowError, OSError):
+                    pass
 
         return MarketSnapshot(
             venue=Venue.KALSHI,
@@ -99,19 +125,28 @@ class KalshiClient(BaseHttpClient):
             yes_bid=round(yes_bid, 4) if yes_bid is not None else None,
             yes_ask=round(yes_ask, 4) if yes_ask is not None else None,
             last_price=round(last_price, 4) if last_price is not None else None,
-            # Kalshi reports contracts (each settles at $1) -> treat as USD notional.
+            # Kalshi activity fields are contract counts, not USD turnover.
             # `/markets` does not expose a dedicated order-book depth field; we leave
             # `liquidity` as 0 (unknown) and use open_interest as the depth proxy.
-            volume=_f(m.get("volume")),
-            volume_24h=_f(m.get("volume_24h")),
+            volume=_f(m.get("volume_fp"), _f(m.get("volume"))),
+            volume_24h=_f(m.get("volume_24h_fp"), _f(m.get("volume_24h"))),
             liquidity=0.0,
-            open_interest=_f(m.get("open_interest")),
-            active=bool(m.get("status") == "open"),
+            open_interest=_f(m.get("open_interest_fp"), _f(m.get("open_interest"))),
+            active=bool(m.get("status") in ("open", "active")),
             closed=bool(m.get("status") in ("closed", "settled")),
             end_date=end_date,
+            volume_unit="contracts",
             raw={
                 "event_ticker": m.get("event_ticker"),
                 "sub_title": m.get("subtitle"),
+                "yes_sub_title": m.get("yes_sub_title"),
+                "no_sub_title": m.get("no_sub_title"),
+                "rules_primary": m.get("rules_primary"),
+                "rules_secondary": m.get("rules_secondary"),
+                "strike_type": m.get("strike_type"),
+                "floor_strike": m.get("floor_strike"),
+                "cap_strike": m.get("cap_strike"),
+                "expected_expiration_time": m.get("expected_expiration_time"),
                 "yes_bid_cents": yes_bid_c,
                 "yes_ask_cents": yes_ask_c,
             },

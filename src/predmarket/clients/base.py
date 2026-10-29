@@ -38,11 +38,14 @@ class BaseHttpClient:
         for attempt in range(self.max_retries):
             try:
                 resp = self.session.get(url, params=params, timeout=self.timeout)
-                if resp.status_code == 429:
-                    retry_after = resp.headers.get("Retry-After")
-                    wait = float(retry_after) if retry_after else self.backoff ** attempt + random.uniform(0, 0.5)
-                    log.warning("429 on %s; sleeping %.1fs (attempt %d)", url, wait, attempt + 1)
-                    time.sleep(wait)
+                if resp.status_code == 429 or 500 <= resp.status_code < 600:
+                    last_exc = RuntimeError(f"HTTP {resp.status_code}")
+                    if attempt + 1 < self.max_retries:
+                        try:
+                            wait = float(resp.headers.get("Retry-After", ""))
+                        except (TypeError, ValueError):
+                            wait = self.backoff ** attempt + random.uniform(0, 0.5)
+                        time.sleep(min(30.0, max(0.0, wait)))
                     continue
                 resp.raise_for_status()
                 return resp.json()
@@ -50,5 +53,6 @@ class BaseHttpClient:
                 last_exc = exc
                 wait = self.backoff ** attempt + random.uniform(0, 0.5)
                 log.warning("network error on %s: %s; retrying in %.1fs", url, exc, wait)
-                time.sleep(wait)
+                if attempt + 1 < self.max_retries:
+                    time.sleep(wait)
         raise RuntimeError(f"GET {url} failed after {self.max_retries} retries: {last_exc}")

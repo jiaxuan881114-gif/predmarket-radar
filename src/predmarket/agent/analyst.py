@@ -25,8 +25,8 @@ def _build_brief(
     moves: list[ProbabilityMove],
     anomalies: list[AnomalySignal],
 ) -> dict[str, Any]:
-    rel_moves = [mv.model_dump(mode="json") for mv in moves if mv.market_id == m.market_id]
-    rel_anom = [a.model_dump(mode="json") for a in anomalies if a.market_id == m.market_id]
+    rel_moves = [mv.model_dump(mode="json") for mv in moves if mv.market_id == m.market_id and mv.venue == m.venue]
+    rel_anom = [a.model_dump(mode="json") for a in anomalies if a.market_id == m.market_id and a.venue == m.venue]
     return {
         "market_id": m.market_id,
         "venue": m.venue.value,
@@ -36,6 +36,7 @@ def _build_brief(
         "yes_ask": m.yes_ask,
         "spread": m.spread,
         "volume": m.volume,
+        "volume_unit": m.volume_unit,
         "volume_24h": m.volume_24h,
         "liquidity": m.liquidity,
         "end_date": m.end_date.isoformat() if m.end_date else None,
@@ -78,7 +79,10 @@ class MarketAnalyst:
         resp.raise_for_status()
         content = resp.json()["choices"][0]["message"]["content"]
         data = json.loads(content)
-        return AgentJudgement.model_validate(data)
+        result = AgentJudgement.model_validate(data)
+        if (result.market_id, result.venue.value, result.question) != (brief["market_id"], brief["venue"], brief["question"]):
+            raise ValueError("LLM judgement identity does not match input market")
+        return result
 
     def judge(
         self,
@@ -132,7 +136,7 @@ class MockAnalyst:
                 direction, conviction, action = "NEUTRAL", 2, "monitor — two-sided, fairly priced"
                 thesis = (
                     f"'{m.question}' sits near {m.yes_prob:.0%} YES with meaningful two-sided activity "
-                    f"($ {m.volume_24h:,.0f} 24h). No obvious mispricing from the feed alone."
+                    f"({m.volume_24h:,.0f} {m.volume_unit} 24h). No obvious mispricing from the feed alone."
                 )
             else:
                 direction = "NO" if m.yes_prob > 0.7 else "YES"
@@ -145,7 +149,7 @@ class MockAnalyst:
 
             factors = [
                 f"current YES probability {m.yes_prob:.0%}",
-                f"24h volume ${m.volume_24h:,.0f}",
+                f"24h volume {m.volume_24h:,.0f} {m.volume_unit}",
             ]
             if brief["recent_moves"]:
                 factors.append(f"recent move {move_delta*100:+.0f}pp")

@@ -1,0 +1,9 @@
+{
+  "rounds": 2,
+  "previous_count": 40,
+  "current_count": 40,
+  "matched_markets": 40,
+  "moves_at_default_threshold": 0,
+  "agent": "MockAnalyst",
+  "note": "Two real API collections through an explicitly configured proxy. Zero moves is valid; no synthetic live price movement."
+}
