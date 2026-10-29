@@ -1,0 +1,448 @@
+{
+  "generated_at": "2026-10-29T08:23:48.226983+00:00",
+  "totals": {
+    "markets_fetched": 40,
+    "polymarket": 20,
+    "kalshi": 20
+  },
+  "top_markets": [
+    {
+      "score": 93.7,
+      "venue": "polymarket",
+      "question": "Will Benjamin Netanyahu be the next Prime Minister of Israel?",
+      "yes_prob": 0.455,
+      "volume_24h": 3022674.1871390003,
+      "reasons": [
+        "high 24h volume (3,022,674 USD)",
+        "deep liquidity ($739,909)",
+        "open/uncertain outcome (46%)"
+      ],
+      "url": "https://polymarket.com/market/will-benjamin-netanyahu-be-the-next-prime-minister-of-israel"
+    },
+    {
+      "score": 89.5,
+      "venue": "polymarket",
+      "question": "2026 Balance of Power: D Senate, D House",
+      "yes_prob": 0.665,
+      "volume_24h": 412038.33276399993,
+      "reasons": [
+        "high 24h volume (412,038 USD)",
+        "deep liquidity ($4,567,501)"
+      ],
+      "url": "https://polymarket.com/market/2026-balance-of-power-d-senate-d-house-949"
+    },
+    {
+      "score": 87.2,
+      "venue": "polymarket",
+      "question": "Will Gadi Eizenkot be the next Prime Minister of Israel?",
+      "yes_prob": 0.254,
+      "volume_24h": 433427.793475,
+      "reasons": [
+        "high 24h volume (433,428 USD)",
+        "deep liquidity ($327,924)"
+      ],
+      "url": "https://polymarket.com/market/will-gadi-eizenkot-be-the-next-prime-minister-of-israel"
+    },
+    {
+      "score": 85.7,
+      "venue": "polymarket",
+      "question": "Will the Fed increase interest rates by 25 bps after the December 2026 meeting?",
+      "yes_prob": 0.765,
+      "volume_24h": 490267.14255499985,
+      "reasons": [
+        "high 24h volume (490,267 USD)",
+        "deep liquidity ($486,333)"
+      ],
+      "url": "https://polymarket.com/market/will-the-fed-increase-interest-rates-by-25-bps-after-the-december-2026-meeting-20260729232808636"
+    },
+    {
+      "score": 85.2,
+      "venue": "polymarket",
+      "question": "Will there be no change in Fed interest rates after the December 2026 meeting?",
+      "yes_prob": 0.215,
+      "volume_24h": 699466.8725659999,
+      "reasons": [
+        "high 24h volume (699,467 USD)",
+        "deep liquidity ($376,956)"
+      ],
+      "url": "https://polymarket.com/market/will-there-be-no-change-in-fed-interest-rates-after-the-december-2026-meeting-20260729232808635"
+    },
+    {
+      "score": 82.7,
+      "venue": "polymarket",
+      "question": "US announces end of Iranian blockade by November 30, 2026?",
+      "yes_prob": 0.29,
+      "volume_24h": 274233.62209,
+      "reasons": [
+        "high 24h volume (274,234 USD)"
+      ],
+      "url": "https://polymarket.com/market/us-announces-end-of-iranian-blockade-by-november-30-2026"
+    },
+    {
+      "score": 82.2,
+      "venue": "polymarket",
+      "question": "Will the Democratic Party control the House after the 2026 Midterm elections?",
+      "yes_prob": 0.925,
+      "volume_24h": 1069813.693613,
+      "reasons": [
+        "high 24h volume (1,069,814 USD)",
+        "deep liquidity ($7,009,538)"
+      ],
+      "url": "https://polymarket.com/market/will-the-democratic-party-control-the-house-after-the-2026-midterm-elections"
+    },
+    {
+      "score": 82.2,
+      "venue": "polymarket",
+      "question": "Will the Republican Party control the House after the 2026 Midterm elections?",
+      "yes_prob": 0.075,
+      "volume_24h": 1048567.9560520003,
+      "reasons": [
+        "high 24h volume (1,048,568 USD)",
+        "deep liquidity ($5,905,015)"
+      ],
+      "url": "https://polymarket.com/market/will-the-republican-party-control-the-house-after-the-2026-midterm-elections"
+    },
+    {
+      "score": 81.8,
+      "venue": "polymarket",
+      "question": "2026 Balance of Power: R Senate, R House",
+      "yes_prob": 0.065,
+      "volume_24h": 477874.148128,
+      "reasons": [
+        "high 24h volume (477,874 USD)",
+        "deep liquidity ($4,728,521)"
+      ],
+      "url": "https://polymarket.com/market/2026-balance-of-power-r-senate-r-house-537"
+    },
+    {
+      "score": 80.8,
+      "venue": "polymarket",
+      "question": "US x Iran ceasefire continues through November 8?",
+      "yes_prob": 0.815,
+      "volume_24h": 311939.71224,
+      "reasons": [
+        "high 24h volume (311,940 USD)",
+        "deep liquidity ($148,356)"
+      ],
+      "url": "https://polymarket.com/market/us-x-iran-ceasefire-continues-through-november-8"
+    },
+    {
+      "score": 80.2,
+      "venue": "polymarket",
+      "question": "Will Likud win the most seats in the 2026 Israeli legislative election?",
+      "yes_prob": 0.994,
+      "volume_24h": 1240515.460753,
+      "reasons": [
+        "high 24h volume (1,240,515 USD)",
+        "deep liquidity ($357,107)"
+      ],
+      "url": "https://polymarket.com/market/will-likud-win-the-most-seats-in-the-2026-israeli-legislative-election"
+    },
+    {
+      "score": 79.5,
+      "venue": "polymarket",
+      "question": "Counter-Strike: FUT Esports vs Nemiga (BO3) - PGL Masters Bucharest Playoffs",
+      "yes_prob": 0.845,
+      "volume_24h": 1064078.031302,
+      "reasons": [
+        "high 24h volume (1,064,078 USD)"
+      ],
+      "url": "https://polymarket.com/market/cs2-fut-nemi1-2026-10-29"
+    },
+    {
+      "score": 79.5,
+      "venue": "polymarket",
+      "question": "Will Likud win 30-34 seats in the 2026 Israeli legislative election?",
+      "yes_prob": 0.004,
+      "volume_24h": 796047.744023,
+      "reasons": [
+        "high 24h volume (796,048 USD)",
+        "deep liquidity ($184,817)"
+      ],
+      "url": "https://polymarket.com/market/will-likud-win-30-34-seats-in-the-2026-israeli-legislative-election"
+    },
+    {
+      "score": 79.3,
+      "venue": "polymarket",
+      "question": "Israel x Iran ceasefire continues through October 31?",
+      "yes_prob": 0.9715,
+      "volume_24h": 338424.560642,
+      "reasons": [
+        "high 24h volume (338,425 USD)",
+        "deep liquidity ($211,497)"
+      ],
+      "url": "https://polymarket.com/market/israel-x-iran-ceasefire-continues-through-october-31"
+    },
+    {
+      "score": 79.2,
+      "venue": "polymarket",
+      "question": "Will Shakhtar Donetsk win the 2026-27 UEFA Champions League Championship?",
+      "yes_prob": 0.0015,
+      "volume_24h": 414423.753,
+      "reasons": [
+        "high 24h volume (414,424 USD)",
+        "deep liquidity ($166,697)"
+      ],
+      "url": "https://polymarket.com/market/will-shakhtar-donetsk-win-the-2026-27-uefa-champions-league-championship-20260701202025578"
+    },
+    {
+      "score": 79.1,
+      "venue": "polymarket",
+      "question": "Strait of Hormuz traffic returns to normal by October 31?",
+      "yes_prob": 0.0015,
+      "volume_24h": 410703.826117,
+      "reasons": [
+        "high 24h volume (410,704 USD)",
+        "deep liquidity ($272,128)"
+      ],
+      "url": "https://polymarket.com/market/strait-of-hormuz-traffic-returns-to-normal-by-october-31-20260810151043583"
+    },
+    {
+      "score": 78.1,
+      "venue": "polymarket",
+      "question": "Will the Fed decrease interest rates by 50+ bps after the December 2026 meeting?",
+      "yes_prob": 0.0025,
+      "volume_24h": 443812.47099600005,
+      "reasons": [
+        "high 24h volume (443,812 USD)",
+        "deep liquidity ($233,269)"
+      ],
+      "url": "https://polymarket.com/market/will-the-fed-decrease-interest-rates-by-50-bps-after-the-december-2026-meeting-20260729232808633"
+    },
+    {
+      "score": 77.8,
+      "venue": "polymarket",
+      "question": "Will the Fed decrease interest rates by 25 bps after the December 2026 meeting?",
+      "yes_prob": 0.0045,
+      "volume_24h": 387873.946078,
+      "reasons": [
+        "high 24h volume (387,874 USD)",
+        "deep liquidity ($405,139)"
+      ],
+      "url": "https://polymarket.com/market/will-the-fed-decrease-interest-rates-by-25-bps-after-the-december-2026-meeting-20260729232808634"
+    },
+    {
+      "score": 77.3,
+      "venue": "polymarket",
+      "question": "Guangzhou Open: Maria Timofeeva vs Xinran Sun",
+      "yes_prob": 0.135,
+      "volume_24h": 294292.7511400001,
+      "reasons": [
+        "high 24h volume (294,293 USD)"
+      ],
+      "url": "https://polymarket.com/market/wta-timofee-su-2026-10-28"
+    },
+    {
+      "score": 77.2,
+      "venue": "polymarket",
+      "question": "Will the Fed increase interest rates by 50+ bps after the December 2026 meeting?",
+      "yes_prob": 0.024,
+      "volume_24h": 321195.607216,
+      "reasons": [
+        "high 24h volume (321,196 USD)",
+        "deep liquidity ($185,646)"
+      ],
+      "url": "https://polymarket.com/market/will-the-fed-increase-interest-rates-by-50-bps-after-the-december-2026-meeting-20260729232808637"
+    }
+  ],
+  "probability_moves": [],
+  "anomalies": [
+    {
+      "type": "extreme_longshot",
+      "severity": "info",
+      "market_id": "0xf77fa3e63014f1f76ea4433dac66b3860493ed7f1a9fee3dfbef9104d7f1eee3",
+      "venue": "polymarket",
+      "detail": "priced 99% (near-certain (YES favourite)) with 1,240,515 USD 24h volume",
+      "metric": 0.994,
+      "reference": null
+    },
+    {
+      "type": "high_velocity",
+      "severity": "warning",
+      "market_id": "0x7a5f40916856c70b970fd7493c4adf38e85846b143891ae4c9feb0fd7fcf0da6",
+      "venue": "polymarket",
+      "detail": "24h volume is 97% of lifetime volume \u2014 attention spike",
+      "metric": 0.966,
+      "reference": null
+    },
+    {
+      "type": "extreme_longshot",
+      "severity": "info",
+      "market_id": "0xc855714184ac46005a7897c68f274147f0abf1fde791421541edb065fa65a1e4",
+      "venue": "polymarket",
+      "detail": "priced 0% (longshot (NO favourite)) with 796,048 USD 24h volume",
+      "metric": 0.004,
+      "reference": null
+    },
+    {
+      "type": "high_velocity",
+      "severity": "warning",
+      "market_id": "0x723822eb2b143cee54c0bd7c1efba322b21f0051984c266df8879c394f1011c0",
+      "venue": "polymarket",
+      "detail": "24h volume is 38% of lifetime volume \u2014 attention spike",
+      "metric": 0.38,
+      "reference": null
+    },
+    {
+      "type": "extreme_longshot",
+      "severity": "info",
+      "market_id": "0xb9aee520bf51ac5f00b5c43e54ef9245bc9fcdef866ce8a33025f9a441cc651d",
+      "venue": "polymarket",
+      "detail": "priced 0% (longshot (NO favourite)) with 443,812 USD 24h volume",
+      "metric": 0.0025,
+      "reference": null
+    },
+    {
+      "type": "high_velocity",
+      "severity": "warning",
+      "market_id": "0xb9aee520bf51ac5f00b5c43e54ef9245bc9fcdef866ce8a33025f9a441cc651d",
+      "venue": "polymarket",
+      "detail": "24h volume is 31% of lifetime volume \u2014 attention spike",
+      "metric": 0.312,
+      "reference": null
+    },
+    {
+      "type": "extreme_longshot",
+      "severity": "info",
+      "market_id": "0xefa17dee3af09f69f9ddf245b969aa4efbe7c71cdf06ee49d694408bc33e2ed2",
+      "venue": "polymarket",
+      "detail": "priced 0% (longshot (NO favourite)) with 414,424 USD 24h volume",
+      "metric": 0.0015,
+      "reference": null
+    },
+    {
+      "type": "extreme_longshot",
+      "severity": "info",
+      "market_id": "0x405b56fc75f56d7635a94df9836d6cb6f9b9571d1fd33eb165c1e59d1d11801f",
+      "venue": "polymarket",
+      "detail": "priced 0% (longshot (NO favourite)) with 410,704 USD 24h volume",
+      "metric": 0.0015,
+      "reference": null
+    },
+    {
+      "type": "extreme_longshot",
+      "severity": "info",
+      "market_id": "0xf17ad24eb4ad57926495b114149c765b9b95bc286eadc91cbbfa901ceb10d0b8",
+      "venue": "polymarket",
+      "detail": "priced 0% (longshot (NO favourite)) with 387,874 USD 24h volume",
+      "metric": 0.0045,
+      "reference": null
+    },
+    {
+      "type": "extreme_longshot",
+      "severity": "info",
+      "market_id": "0xc3d5708780de5528998aeb53ca90e7ade64804f9f2386392a681435d5c42b44d",
+      "venue": "polymarket",
+      "detail": "priced 97% (near-certain (YES favourite)) with 338,425 USD 24h volume",
+      "metric": 0.9715,
+      "reference": null
+    },
+    {
+      "type": "extreme_longshot",
+      "severity": "info",
+      "market_id": "0xa5f8a44504de30fa36fff2406b2b27b3d15476ed50448e4fc3ead4861d8a5e3e",
+      "venue": "polymarket",
+      "detail": "priced 2% (longshot (NO favourite)) with 321,196 USD 24h volume",
+      "metric": 0.024,
+      "reference": null
+    },
+    {
+      "type": "high_velocity",
+      "severity": "warning",
+      "market_id": "0xa5f8a44504de30fa36fff2406b2b27b3d15476ed50448e4fc3ead4861d8a5e3e",
+      "venue": "polymarket",
+      "detail": "24h volume is 31% of lifetime volume \u2014 attention spike",
+      "metric": 0.312,
+      "reference": null
+    },
+    {
+      "type": "high_velocity",
+      "severity": "warning",
+      "market_id": "0xdbcc19248725b32aa85acbdd91f1877cb124a68cf6d7bc2d036e0e91ffa0f9c6",
+      "venue": "polymarket",
+      "detail": "24h volume is 56% of lifetime volume \u2014 attention spike",
+      "metric": 0.563,
+      "reference": null
+    },
+    {
+      "type": "high_velocity",
+      "severity": "warning",
+      "market_id": "0xf37075b152c1a6d62861d182b408cb57e49cccd871739e10e64cfa8becdf3807",
+      "venue": "polymarket",
+      "detail": "24h volume is 89% of lifetime volume \u2014 attention spike",
+      "metric": 0.887,
+      "reference": null
+    },
+    {
+      "type": "high_velocity",
+      "severity": "warning",
+      "market_id": "0x7a70fc60ee280fa7b4312f5dd128d148d74ae5b3e4a2e8215ccf0030a08ebb04",
+      "venue": "polymarket",
+      "detail": "24h volume is 41% of lifetime volume \u2014 attention spike",
+      "metric": 0.41,
+      "reference": null
+    }
+  ],
+  "cross_venue_pairs": [],
+  "errors": [],
+  "agent": "MockAnalyst",
+  "agent_judgements": [
+    {
+      "market_id": "0x7586a96520578acaaaa4ea84a2582f197f84255da1f3392a7aa300386c187b37",
+      "venue": "polymarket",
+      "question": "Will Benjamin Netanyahu be the next Prime Minister of Israel?",
+      "thesis": "'Will Benjamin Netanyahu be the next Prime Minister of Israel?' sits near 46% YES with meaningful two-sided activity (3,022,674 USD 24h). No obvious mispricing from the feed alone.",
+      "direction": "NEUTRAL",
+      "conviction": 2,
+      "key_factors": [
+        "current YES probability 46%",
+        "24h volume 3,022,674 USD"
+      ],
+      "risks": [
+        "thin book / wide spread",
+        "late-breaking news not yet in price"
+      ],
+      "suggested_action": "monitor \u2014 two-sided, fairly priced",
+      "confidence_in_market": 0.9,
+      "reasoning_trace": "mock-rule-based judgement (offline demo)"
+    },
+    {
+      "market_id": "0x16c63b7cc37f012b9f59ee164ec03877914c701d06d48291ae8d6fc08a088b0d",
+      "venue": "polymarket",
+      "question": "2026 Balance of Power: D Senate, D House",
+      "thesis": "'2026 Balance of Power: D Senate, D House' is heavily skewed at 66% YES. The market is expressing high confidence; a contrarian read needs a concrete catalyst, not just the price.",
+      "direction": "YES",
+      "conviction": 2,
+      "key_factors": [
+        "current YES probability 66%",
+        "24h volume 412,038 USD"
+      ],
+      "risks": [
+        "thin book / wide spread",
+        "late-breaking news not yet in price"
+      ],
+      "suggested_action": "small contrarian position only if supported by outside evidence",
+      "confidence_in_market": 0.9,
+      "reasoning_trace": "mock-rule-based judgement (offline demo)"
+    },
+    {
+      "market_id": "0xdbe93b5a701f36076a560fa4b9ba59e365a6e8e2ea6a83764640010657277ca4",
+      "venue": "polymarket",
+      "question": "Will Gadi Eizenkot be the next Prime Minister of Israel?",
+      "thesis": "'Will Gadi Eizenkot be the next Prime Minister of Israel?' is heavily skewed at 25% YES. The market is expressing high confidence; a contrarian read needs a concrete catalyst, not just the price.",
+      "direction": "YES",
+      "conviction": 2,
+      "key_factors": [
+        "current YES probability 25%",
+        "24h volume 433,428 USD"
+      ],
+      "risks": [
+        "thin book / wide spread",
+        "late-breaking news not yet in price"
+      ],
+      "suggested_action": "small contrarian position only if supported by outside evidence",
+      "confidence_in_market": 0.92,
+      "reasoning_trace": "mock-rule-based judgement (offline demo)"
+    }
+  ]
+}

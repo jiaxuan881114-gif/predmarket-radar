@@ -182,5 +182,34 @@ submits orders or connects to a trading account.
   the mock is a no-key demonstration mode, not a silent replacement for failed real calls.
 - Total market-fetch failure now returns exit code 1 and an empty-current-data report;
   old stored markets are never submitted to the agent as a fresh collection.
-- Live Polymarket and Kalshi checks timed out in this environment. Live connectivity
-  and real-LLM end-to-end behaviour remain unverified; offline tests do not prove them.
+- Live connectivity was subsequently verified through an explicitly configured local
+  HTTP proxy: two rounds of real API collection succeeded. See
+  `samples/live_verification.json` and `samples/live_report_1.json` / `live_report_2.json`.
+  These reports use MockAnalyst; real-LLM end-to-end behaviour remains unverified.
+
+## Network troubleshooting and verified live run
+
+On the tested macOS network, direct Kalshi connections timed out and direct
+Polymarket TLS connections were reset. Both APIs returned HTTP 200 through the
+configured local proxy. The terminal had no proxy environment variables even though
+macOS system proxy settings were enabled. This comparison used direct and proxy
+routes on the same network; it did not switch Wi-Fi or use a mobile hotspot.
+
+If you use a local proxy, explicitly export its actual address before running:
+
+```bash
+# Example only: use the host/port configured by your proxy application.
+export HTTP_PROXY=http://127.0.0.1:17891
+export HTTPS_PROXY=http://127.0.0.1:17891
+PYTHONPATH=src python -m predmarket.cli run --limit 20
+```
+
+The proxy application must be running. The project does not hard-code a proxy and
+`.env.example` is documentation, not an automatically loaded configuration file.
+Do not commit proxy credentials. For a no-LLM connectivity check, unset
+`OPENAI_API_KEY` in that shell so `run` selects MockAnalyst.
+
+A successful collection alone cannot guarantee a probability-move signal: the
+same market must appear in consecutive snapshots and change by at least 5pp.
+Current top-list sampling can change the market universe between runs; persistent
+watchlists and streaming are outside the current implementation.
