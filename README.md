@@ -147,6 +147,13 @@ samples/        fixtures + regenerated demo report
 tests/          offline tests
 ```
 
+## Resume
+
+This repo doubles as a portfolio piece. See:
+
+- [`RESUME.md`](RESUME.md) — markdown version
+- [`resume/张家轩-简历.pdf`](resume/张家轩-简历.pdf) — PDF version
+
 ## Disclaimer
 
 Public, read-only market data for research. Prediction markets carry tail risk; the
