@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "predmarket-radar"
+version = "0.1.0"
+description = "Prediction-market (Polymarket + Kalshi) data pipeline, analysis framework and LLM judgement layer"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+    "pydantic>=2.6",
+    "requests>=2.31",
+]
+
+[project.scripts]
+predmarket = "predmarket.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
