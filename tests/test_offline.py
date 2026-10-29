@@ -57,9 +57,47 @@ def test_mock_agent_emits_structured_judgement():
         assert 1 <= j.conviction <= 5
 
 
+def test_direction_enum_rejects_invalid_value():
+    from pydantic import ValidationError
+    from predmarket.models import AgentJudgement
+    try:
+        AgentJudgement(
+            market_id="x", venue="polymarket", question="q", thesis="t",
+            direction="MAYBE", conviction=3, key_factors=[], risks=[],
+            suggested_action="s", confidence_in_market=0.5,
+        )
+    except ValidationError:
+        return
+    raise AssertionError("invalid direction=MAYBE was accepted")
+
+
+def test_polymarket_bid_ask_mapped_to_unified_model():
+    from predmarket.clients.polymarket import PolymarketClient
+    snap = PolymarketClient()._normalize({
+        "question": "Will X happen?",
+        "outcomePrices": "[0.58, 0.42]",
+        "outcomes": "[Yes, No]",
+        "bestBid": "0.57",
+        "bestAsk": "0.59",
+        "volume": "1000", "volume24hr": "500", "liquidity": "100",
+    })
+    assert snap.yes_bid == 0.57
+    assert snap.yes_ask == 0.59
+    assert snap.spread == 0.02
+
+
+def test_cross_venue_does_not_pair_across_years():
+    from predmarket.analysis.cross_venue import _years_compatible
+    assert _years_compatible("Will Fed cut in Dec 2026?", "Fed cut December 2026?") is True
+    assert _years_compatible("Will Fed cut in Dec 2026?", "Fed cut December 2027?") is False
+
+
 if __name__ == "__main__":
     test_screening_ranks_high_volume_first()
     test_cross_venue_finds_fed_dislocation()
     test_wide_spread_flagged()
     test_mock_agent_emits_structured_judgement()
+    test_direction_enum_rejects_invalid_value()
+    test_polymarket_bid_ask_mapped_to_unified_model()
+    test_cross_venue_does_not_pair_across_years()
     print("all offline tests passed")

@@ -12,7 +12,7 @@ import json
 import logging
 from pathlib import Path
 
-from .agent import build_analyst
+from .agent import MockAnalyst, build_analyst
 from .analysis import detect_anomalies, find_cross_venue_dislocations, screen_markets
 from .models import AnomalySignal, MarketSnapshot, ProbabilityMove
 from .pipeline import Collector, SnapshotStore
@@ -46,6 +46,7 @@ def cmd_run(args: argparse.Namespace) -> int:
         [s.market for s in screened], moves=moves, anomalies=anomalies, limit=args.agent_limit,
     )
     report_dict = report.as_dict()
+    report_dict["agent"] = type(analyst).__name__
     report_dict["agent_judgements"] = [j.model_dump(mode="json") for j in judgements]
 
     out = Path(args.out) if args.out else Path(args.data_dir) / "report_latest.json"
@@ -64,7 +65,9 @@ def cmd_demo(args: argparse.Namespace) -> int:
     screened = screen_markets(markets, top_n=args.top_n)
     anomalies = detect_anomalies(markets)
     pairs = find_cross_venue_dislocations(markets)
-    analyst = build_analyst()  # offline -> MockAnalyst
+    # Demo is deterministic by design: ALWAYS use the offline MockAnalyst regardless of
+    # whether OPENAI_API_KEY happens to be set, so the bundled sample output is stable.
+    analyst = MockAnalyst()
     judgements = analyst.judge(
         [s.market for s in screened],
         moves=[],
@@ -74,6 +77,7 @@ def cmd_demo(args: argparse.Namespace) -> int:
 
     report = {
         "generated_at": "demo",
+        "agent": "MockAnalyst (deterministic offline)",
         "totals": {
             "markets_fetched": len(markets),
             "polymarket": sum(1 for m in markets if m.venue.value == "polymarket"),
@@ -88,7 +92,7 @@ def cmd_demo(args: argparse.Namespace) -> int:
         "anomalies": [a.model_dump(mode="json") for a in anomalies],
         "cross_venue_pairs": [p.as_dict() for p in pairs],
         "agent_judgements": [j.model_dump(mode="json") for j in judgements],
-        "note": "offline demo run on bundled fixtures; agent is MockAnalyst (no LLM key used)",
+        "note": "offline demo on bundled fixtures; agent forced to MockAnalyst (real LLM only via `run`)",
     }
     out = Path(args.out) if args.out else _SAMPLES / "demo_report.json"
     out.parent.mkdir(parents=True, exist_ok=True)

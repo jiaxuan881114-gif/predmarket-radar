@@ -14,7 +14,7 @@ from ..models import MarketSnapshot, Venue
 _STOPWORDS = {
     "will", "the", "a", "an", "be", "by", "to", "of", "in", "on", "for", "at",
     "vs", "or", "and", "with", "before", "after", "this", "next", "year",
-    "market", "prediction", "odds", "2024", "2025", "2026", "2027", "2028",
+    "market", "prediction", "odds",
     "meeting", "basis", "points", "point", "bp", "pp",
 }
 
@@ -33,6 +33,11 @@ _DISLOCATION_PP = 8.0
 _MIN_JACCARD = 0.45
 
 
+def _years(title: str) -> set[str]:
+    """Extract 4-digit years (e.g. 2026, 2028) mentioned in the title."""
+    return set(re.findall(r"\b(20\d{2}|19\d{2})\b", title.lower()))
+
+
 def _normalize(title: str) -> set[str]:
     title = title.lower()
     title = re.sub(r"[^a-z0-9\s]", " ", title)
@@ -40,12 +45,24 @@ def _normalize(title: str) -> set[str]:
     for tok in title.split():
         if tok in _STOPWORDS or len(tok) <= 2:
             continue
+        # Years are dates, not semantic tokens — handled separately by _years().
+        if re.fullmatch(r"(20\d{2}|19\d{2})", tok):
+            continue
         # Crude singularisation: rates -> rate, points -> point
         stem = tok[:-1] if tok.endswith("s") and len(tok) > 4 else tok
         tok = _SYNONYMS.get(tok, _SYNONYMS.get(stem, stem))
         if tok and tok not in _STOPWORDS:
             tokens.add(tok)
     return tokens
+
+
+def _years_compatible(a: str, b: str) -> bool:
+    """True unless both titles name at least one year and they share none.
+    Prevents 'Dec 2026 Fed cut' matching 'Dec 2027 Fed cut'."""
+    ya, yb = _years(a), _years(b)
+    if ya and yb and not (ya & yb):
+        return False
+    return True
 
 
 def _jaccard(a: set[str], b: set[str]) -> float:
@@ -93,6 +110,9 @@ def find_cross_venue_dislocations(
         best_k = None
         best_sim = 0.0
         for k, kn in kal_norms:
+            # Never pair a 2026 event with a 2027 event on the "same question".
+            if not _years_compatible(p.question, k.question):
+                continue
             sim = _jaccard(pn, kn)
             if sim > best_sim:
                 best_sim, best_k = sim, k

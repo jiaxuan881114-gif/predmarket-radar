@@ -24,6 +24,18 @@ class Venue(str, Enum):
     KALSHI = "kalshi"
 
 
+class Direction(str, Enum):
+    YES = "YES"
+    NO = "NO"
+    NEUTRAL = "NEUTRAL"
+
+
+class Severity(str, Enum):
+    INFO = "info"
+    WARNING = "warning"
+    CRITICAL = "critical"
+
+
 def _now() -> datetime:
     return datetime.now(timezone.utc)
 
@@ -96,7 +108,7 @@ class ProbabilityMove(BaseModel):
 
 class AnomalySignal(BaseModel):
     type: str = Field(description="e.g. price_jump, volume_spike, wide_spread, cross_venue_dislocation")
-    severity: str = Field(description="info | warning | critical")
+    severity: Severity = Field(default=Severity.INFO, description="info | warning | critical")
     market_id: str
     venue: Venue
     detail: str
@@ -111,7 +123,7 @@ class AgentJudgement(BaseModel):
     venue: Venue
     question: str
     thesis: str = Field(description="2-3 sentence plain-English thesis on what the market is pricing")
-    direction: str = Field(description="YES | NO | NEUTRAL")
+    direction: Direction = Field(description="YES | NO | NEUTRAL; anything else is rejected")
     conviction: int = Field(ge=1, le=5, description="1=very weak .. 5=very strong")
     key_factors: list[str] = Field(default_factory=list)
     risks: list[str] = Field(default_factory=list)

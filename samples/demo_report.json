@@ -1,5 +1,6 @@
 {
   "generated_at": "demo",
+  "agent": "MockAnalyst (deterministic offline)",
   "totals": {
     "markets_fetched": 10,
     "polymarket": 5,
@@ -250,5 +251,5 @@
       "reasoning_trace": "mock-rule-based judgement (offline demo)"
     }
   ],
-  "note": "offline demo run on bundled fixtures; agent is MockAnalyst (no LLM key used)"
+  "note": "offline demo on bundled fixtures; agent forced to MockAnalyst (real LLM only via `run`)"
 }

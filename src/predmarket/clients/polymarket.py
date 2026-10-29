@@ -121,6 +121,14 @@ class PolymarketClient(BaseHttpClient):
         if yes_price is None:
             return None  # unpriceable market
 
+        # YES-side top of book. Gamma surfaces bestBid/bestAsk as 0..1 decimals.
+        # They key the wide-spread detector; without them every Polymarket market
+        # looks like it has no spread.
+        yes_bid = _f(m.get("bestBid"), None) if m.get("bestBid") not in (None, "") else None
+        yes_ask = _f(m.get("bestAsk"), None) if m.get("bestAsk") not in (None, "") else None
+        if yes_bid is not None and yes_ask is not None and yes_ask < yes_bid:
+            yes_bid = yes_ask = None  # malformed quote
+
         slug = m.get("slug", "")
         end_date = None
         for key in ("endDate", "end_date_iso", "gameStartTime", "closeTime"):
@@ -141,6 +149,8 @@ class PolymarketClient(BaseHttpClient):
             question=question,
             url=f"https://polymarket.com/market/{slug}" if slug else None,
             yes_prob=round(yes_price, 4),
+            yes_bid=round(yes_bid, 4) if yes_bid is not None else None,
+            yes_ask=round(yes_ask, 4) if yes_ask is not None else None,
             last_price=round(_f(m.get("lastTradePrice"), yes_price), 4),
             volume=_f(m.get("volume")),
             volume_24h=_f(m.get("volume24hr")),
